@@ -1,0 +1,1301 @@
+<!--
+=========================================================
+* Argon Dashboard 3 - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  
+  <title>
+    Monisha
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <style>
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+  /* ================= PREMIUM FORM STYLING ================= */
+
+/* Form container */
+form#profileForm {
+ 
+  padding: 25px;
+  border-radius: 12px;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= COURSE PILLS ================= */
+.course-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.course-box .pill {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 25px;
+  border: 1.5px solid #007bff;
+  color: #007bff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.course-box .pill:hover {
+  background: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.course-box .pill.selected {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* ================= UPLOAD PHOTO BOX ================= */
+.upload-box-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  left: 900px;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #007bff;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+}
+
+.upload-box:hover {
+  background: #e6f0ff;
+  border-color: #0056b3;
+}
+
+.upload-box .plus {
+  font-size: 28px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.upload-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: none;
+}
+
+/* Upload text */
+.upload-text {
+  text-align: center;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ================= BUTTONS ================= */
+#submitBtn, #cancelBtn {
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#submitBtn {
+  background: #007bff;
+  border: none;
+  color: #fff;
+}
+
+#submitBtn:hover {
+  background: #0056b3;
+}
+
+#cancelBtn {
+  background: #dc3545;
+  border: none;
+  color: #fff;
+}
+
+#cancelBtn:hover {
+  background: #a71d2a;
+}
+
+/* ================= TOAST ================= */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 220px;
+  background: #007bff;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.error {
+  background: #dc3545;
+}
+
+/* ================= CONFIRM BOX ================= */
+.confirm-overlay {
+  display: none;
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.confirm-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.confirm-box h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.confirm-box p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #555;
+}
+
+/* ================= SPINNER ================= */
+body.loading::after {
+  content: "";
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.25);
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+body.loading::before {
+  content: "";
+  position: fixed;
+  left:50%;
+  top:50%;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #007bff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+/* ===== COURSE OUTER BOX ===== */
+.course-box {
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: 16px;
+  padding: 16px;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+}
+
+.course-box:hover {
+  box-shadow: 
+    0 12px 28px rgba(99,102,241,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+/* Optional title inside box */
+.course-box-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.premium-header{
+  background: linear-gradient(135deg,#5e72e4,#825ee4);
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.premium-header h2{
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.premium-header p{
+  opacity: 0.9;
+  margin: 0;
+}
+.back-floating-btn {
+  position: fixed;
+  top: 50px;        /* adjust based on header height */
+  left: 300px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #5e72e4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-floating-btn i {
+  font-size: 18px;
+}
+</style>
+  </head>
+<body class="g-sidenav-show bg-gray-100">
+  <script>
+(function () {
+  // 🔒 Login check
+  if (!localStorage.getItem("loggedIn")) {
+    window.location.replace("../pages/sign-in.html");
+  }
+
+  // 🚫 Back button block
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+  };
+
+  // 🔄 Cache / reload safety
+  window.addEventListener("pageshow", function () {
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.replace("../pages/sign-in.html");
+    }
+  });
+})();
+</script>
+
+  <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+    <span class="mask bg-primary opacity-6"></span>
+  </div>
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">MONISHA</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/dashboard.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-bar-32 text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link active " href="../pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-question-circle text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1"> Enquiry</span>
+          </a>
+        </li>
+        <li class="nav-item">
+              <a class="nav-link" href="../pages/register.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>  
+                </div>
+                <span class="nav-link-text ms-1"> Register</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/billing.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Billing</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/viewschudeling.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+
+                </div>
+                <span class="nav-link-text ms-1">Batch Scheluding</span>
+              </a>
+            </li>
+            
+
+            <li class="nav-item">
+          <a class="nav-link" href="../pages/studentview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-graduate text-dark text-sm"></i>
+           </div>
+            <span class="nav-link-text ms-1"> Certificate </span>
+          </a>
+        </li>
+       
+        
+                
+                
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/staffregisterview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-user-plus text-dark text-sm"></i>
+            </div>
+            <span class="nav-link-text ms-1">Staff Register</span>
+          </a>
+        </li>
+         
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/attendenceview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-calendar-check text-dark text-sm"></i>
+            </div>
+            <span class="nav-link-text ms-1">Staff Attendence</span>
+          </a>
+        </li>
+         
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/staffpayview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-money-bill-wave text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Staff pay </span>
+          </a>
+        </li>
+        
+                     
+     
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/studentattview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-id-card text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Student Attendence</span>
+          </a>
+        </li>
+        
+        
+       <li class="nav-item">
+                <a class="nav-link " href="../pages/courseview.html">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                   <i class="fas fa-book-open text-dark text-sm opacity-10"></i>
+  
+                    </div>
+                    <span class="nav-link-text ms-1">Course</span>
+                </a>
+                </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/departmentview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-building text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1"> Department </span>
+          </a>
+        </li>
+         
+       <li class="nav-item">
+          <a class="nav-link " href="../pages/designationview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+           <i class="fas fa-user-cog  text-dark text-sm opacity-10"></i>
+
+            </div>
+            <span class="nav-link-text ms-1"> Designation</span>
+          </a>
+        </li>
+         
+            
+         </ul>
+    </div>
+    <div class="sidenav-footer mx-3 ">
+      <div class="card card-plain shadow-none" id="sidenavCard">
+        <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+        <div class="card-body text-center p-3 w-100 pt-0">
+          <div class="docs-info">
+            <h6 class="mb-0">Need help?</h6>
+            <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
+      <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+    </div>
+  </aside>
+  <div class="main-content position-relative max-height-vh-100 h-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2 mt-n11">
+      <div class="container-fluid py-1">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="text-white opacity-5" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profile</li>
+          </ol>
+          <h6 class="text-white font-weight-bolder ms-2">Profile</h6>
+        </nav>
+        <div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Type here...">
+            </div>
+          </div>
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 pe-0 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                  </div>
+                </a>
+              </a>
+            </li>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end px-2 py-3 ms-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New message</span> from Laur
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark me-3">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New album</span> by Travis Scott
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="avatar avatar-sm bg-gradient-secondary me-3 my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Payment successfully completed
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            
+            <div class="card-body">
+              <form id="profileForm" >
+              <input type="hidden" id="row" >
+               <div class="position-relative d-flex align-items-center justify-content-center mb-4">
+  <a href="tables.html" class="back-floating-btn">
+  <i class="fas fa-arrow-left"></i>
+</a>
+  <h3 class="mb-0">Enquiry Form</h3>
+</div>
+              <!-- SQUARE PHOTO UPLOAD -->
+<div style="text-align:right; margin-bottom:10px;">
+
+  <!-- CLICKABLE SQUARE -->
+  <label for="photo" style="display:inline-block; cursor:pointer;">
+    <div id="photoContainer" style="
+      width:80px;
+      height:80px;
+      border:2px dashed #999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    ">
+      <!-- PREVIEW IMAGE -->
+      <img id="photoPreview"
+           style="
+             display:none;
+             width:100%;
+             height:100%;
+             object-fit:cover;
+             position:absolute;
+             top:0;
+             left:0;
+           ">
+      <!-- Placeholder text -->
+      <span id="photoPlaceholder" style="color:#999;">Photo</span>
+    </div>
+  </label>
+
+  <!-- FILE INPUT (HIDDEN) -->
+  <input type="file"
+         id="photo"
+         accept="image/*"
+         style="display:none"
+         onchange="previewImage(this,'photoPreview')">
+</div>
+              
+              <div class="row">
+                <div class="row mb-3">
+      <!-- Resume Upload -->
+      <div class="col-md-6">
+        <label for="resume" class="form-label">Resume / CV</label>
+  <input
+    type="file"
+    id="resume"
+    class="form-control"
+    accept=".pdf,.doc,.docx"
+  />
+
+  <small class="text-muted">PDF or Word document</small>
+
+  <!-- Resume View (Edit Mode) -->
+  <a id="resumePreview"
+     class="d-block mt-2 text-primary"
+     target="_blank"
+     style="display:none"></a>
+
+       <!-- Resume Hint (Edit Mode) -->
+  <small id="resumeHint"
+         class="text-success"
+         style="display:none">
+    Existing resume attached. Upload only if you want to replace.
+  </small>
+      </div>
+                <!-- Aadhaar Upload -->
+      <div class="col-md-6">
+         <label for="aadhaar" class="form-label">Aadhaar Xerox</label>
+  <input
+    type="file"
+    id="aadhaar"
+    class="form-control"
+    accept="image/*,.pdf"
+  />
+
+  <!-- Aadhaar View (Edit Mode) -->
+  <a id="aadhaarPreview"
+     class="d-block mt-2 text-primary"
+     target="_blank"
+     style="display:none"></a>
+
+  <!-- Aadhaar Hint (Edit Mode) -->
+  <small id="aadhaarHint"
+         class="text-success"
+         style="display:none">
+    Existing Aadhaar attached. Upload only if you want to replace.
+  </small>
+</div>
+ 
+</div>
+
+<!-- PREMIUM ALERT 
+<div id="toast" class="toast"></div>
+
+
+<div id="confirmBox" class="confirm-overlay">
+  <div class="confirm-box">
+    <h5 id="confirmTitle">Confirm</h5>
+    <p id="confirmText"></p>
+    <div class="text-end">
+      <button id="confirmNo" class="btn btn-light me-2">Cancel</button>
+      <button id="confirmYes" class="btn btn-danger">Yes</button>
+    </div>
+  </div>
+</div-->
+
+                <!-- Enquiry No & Date -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="enquiry" class="form-label">Enquiry No</label>
+                  <input type="text" id="enquiry" class="form-control" readonly />
+                </div>
+                <div class="col-md-6">
+                  <label for="dob" class="form-label">Date</label>
+                  <input type="date" id="dob" class="form-control" required />
+                </div>
+              </div>
+                <!-- Student Name & Contact -->
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="studentName" class="form-label">Student Name</label>
+                  <input type="text" id="studentName" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="contact" class="form-label">Contact No</label>
+                  <input type="text" id="contact" class="form-control" required />
+                </div>
+              </div>
+              
+              <!-- Email -->
+              <div class=" mb-3">
+                <label for="email" class="form-label">E-mail ID</label>
+                <input type="email" id="email" class="form-control" />
+              </div>
+              <!-- Address -->
+              <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea id="address" class="form-control" rows="2"></textarea>
+              </div>
+
+                
+              
+              <!-- HOW DO YOU KNOW --> 
+<label class="form-label">How do you know about us?</label>
+<select id="know" class="form-select"></select>
+<input type="text" id="knowOther" class="form-control mt-2"
+       placeholder="Please specify" style="display:none">
+        
+              <!-- COURSES -->
+<label class="form-label">Select Courses</label>
+<div id="coursePills" class="course-box"></div>
+
+<input type="hidden" id="course">
+<input type="hidden" id="courseId">
+<input type="hidden" id="fees">
+<!-- Others course input -->
+<input type="text" id="courseOther" class="form-control mt-2"
+       placeholder="Enter course name" style="display:none">
+                <!-- DISPLAY TOTAL -->
+<div class="row mt-3">
+  <div class="col-md-6">
+    <label>Total Course IDs</label>
+    <input type="text" id="courseIdView" class="form-control" readonly>
+  </div>
+  <div class="col-md-6">
+    <label>Total Fees</label>
+    <input type="text" id="feesView" class="form-control" readonly>
+  </div>
+</div>
+<h5 class="mt-4">Qualification Details</h5>
+<div class="table-responsive">
+  <table class="table table-bordered text-center align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Qualification</th>
+        <th>Marks / CGPA</th>
+        <th>Year of Passing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 10th (Always Visible) -->
+      <tr>
+        <td>10th</td>
+        <td><input type="text" class="form-control" name="tenth_marks" required></td>
+        <td><input type="text" class="form-control" name="tenth_year" required></td>
+      </tr>
+
+      <!-- 12th -->
+      <tr id="row_12th">
+        <td>12th</td>
+        <td><input type="text" id="twelfth_marks" class="form-control" name="twelfth_marks"></td>
+        <td><input type="text" id="twelfth_year" class="form-control" name="twelfth_year"></td>
+      </tr>
+
+      <!-- Diploma -->
+      <tr id="row_diploma">
+        <td>Diploma</td>
+        <td><input type="text" id="diploma_marks" class="form-control" name="diploma_marks"></td>
+        <td><input type="text" id="diploma_year" class="form-control" name="diploma_year"></td>
+      </tr>
+
+      <!-- UG -->
+      <tr id="row_ug">
+        <td>UG</td>
+        <td><input type="text" id="ug_marks" class="form-control" name="ug_marks"></td>
+        <td><input type="text" id="ug_year" class="form-control" name="ug_year"></td>
+      </tr>
+
+      <!-- PG (Optional for UG or Diploma) -->
+      <tr id="row_pg" style="display:none;">
+        <td>PG (Optional)</td>
+        <td><input type="text" class="form-control" name="pg_marks"></td>
+        <td><input type="text" class="form-control" name="pg_year"></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+    </tbody>
+  </table>
+</div>
+<input type="hidden" id="row">
+
+<!-- Submit / Update Button -->
+<button type="button" id="submitBtn" class="btn btn-primary w-100">
+  Submit
+</button>
+
+<!-- Cancel Edit Button -->
+<button type="button" id="cancelBtn" class="btn btn-danger w-100 mt-2" style="display:none">
+  Cancel
+</button>
+ </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+<!-- SweetAlert2 for premium alerts -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+              
+              <style>
+/* Full-page loading spinner overlay */
+#loadingOverlay {
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+#loadingOverlay .spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #6366F1; /* premium purple */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+
+/* Toast placeholder if needed */
+.toast { position: fixed; top: 20px; right: 20px; padding: 10px 20px; border-radius: 5px; color: #fff; display: none; z-index: 10000; }
+.toast.success { background-color: #4CAF50; }
+.toast.error { background-color: #F44336; }
+.toast.show { display: block; animation: fadeInOut 3s; }
+@keyframes fadeInOut { 0%,100%{opacity:0} 10%,90%{opacity:1} }
+</style>
+
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+<script>  
+/* ================= CONFIG ================= this script okay*/
+const URL = "https://script.google.com/macros/s/AKfycby6SWOW2ox6sB4F572lkuPRGsCR-ukvGbWVAMhQQM7gmNH4ykZX4cBYJkKDZWItkuWJ/exec";
+
+/* ================= GLOBAL ================= */
+let COURSE_MAP = {};
+let selectedCourses = [];
+let editRow = "";
+
+/* ================= SPINNER & ALERT ================= */
+function showSpinner(show=true){
+  document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+}
+function showToast(msg, icon='success'){
+  Swal.fire({
+    toast:true,
+    position:'top-end',
+    icon,
+    title:msg,
+    showConfirmButton:false,
+    timer:2000,
+    timerProgressBar:true
+  });
+}
+
+/* ================= AUTO DATE ================= */
+function setToday(){
+  const d = new Date();
+  dob.value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+/* ================= RESET PHOTO (🔥 FIX) ================= */
+function resetPhoto() {
+  photo.value = "";                     // 🔑 MOST IMPORTANT
+  photoPreview.src = "";
+  photoPreview.style.display = "none";
+  const ph = document.getElementById("photoPlaceholder");
+  if (ph) ph.style.display = "block";
+}
+
+/* ================= GET EDIT ================= */
+const params = new URLSearchParams(window.location.search);
+if(params.has("edit")) editRow = params.get("edit");
+
+/* ================= INIT ================= */
+async function initForm(){
+  showSpinner(true);
+  try{
+    const res = await fetch(URL+"?action=init");
+    const initData = await res.json();
+
+    if(!editRow){
+      enquiry.value = initData.enquiry;   // only for new form
+      setToday();
+      resetPhoto(); // 🔥 ensure clean state for new student
+    }
+
+    /* SOURCE */
+    know.innerHTML = `<option value="">Select</option>`;
+    initData.source.forEach(s=>know.innerHTML+=`<option>${s}</option>`);
+
+    /* COURSES */
+    initData.courses.forEach(c=>{
+      COURSE_MAP[c[0]] = { id:c[1], fee:c[2] };
+      coursePills.innerHTML += `<span class="pill" onclick="toggleCourse('${c[0]}')">${c[0]}</span>`;
+    });
+
+    coursePills.innerHTML += `<span class="pill" onclick="toggleCourse('Others')">Others</span>`;
+
+    if(editRow){
+      submitBtn.innerText="Update";
+      cancelBtn.style.display="inline-block";
+      const ed = await fetch(`${URL}?action=edit&row=${editRow}`);
+      populateForm(await ed.json(),initData);
+      showToast("Edit mode","info");
+    }
+  }catch{
+    showToast("Init failed","error");
+  }
+  showSpinner(false);
+}
+initForm();
+
+/* ================= SOURCE ================= */
+know.onchange = ()=>{
+  knowOther.style.display = know.value==="Others" ? "block" : "none";
+};
+
+/* ================= COURSE ================= */
+function toggleCourse(n){
+  if(n==="Others"){
+    selectedCourses.includes("Others")
+      ? (selectedCourses = selectedCourses.filter(x=>x!=="Others"), courseOther.style.display="none", courseOther.value="")
+      : (selectedCourses.push("Others"), courseOther.style.display="block");
+  }else{
+    selectedCourses.includes(n)
+      ? selectedCourses = selectedCourses.filter(x=>x!==n)
+      : selectedCourses.push(n);
+  }
+  updateCourse();
+}
+
+courseOther.oninput = updateCourse;
+
+function updateCourse(){
+  let ids = [];
+  let total = 0;
+  let finalCourses = [];
+  let feeArray = [];
+
+  selectedCourses.forEach(c => {
+
+    if(c === "Others"){
+      if(courseOther.value.trim() !== ""){
+        finalCourses.push(courseOther.value.trim());
+      }
+    } 
+    else if(COURSE_MAP[c]) {
+
+      finalCourses.push(c);
+
+      let fee = parseFloat(COURSE_MAP[c].fee) || 0;
+      total += fee;
+
+      feeArray.push(fee);   // 🔥 store each fee
+      ids.push(COURSE_MAP[c].id);
+    }
+  });
+
+  // Hidden fields
+  course.value = finalCourses.join(",");
+  courseId.value = ids.join(",");
+  fees.value = total;
+
+  // Show IDs
+  courseIdView.value = courseId.value;
+
+  // 🔥 SHOW LIKE 5000 + 5000 = 10000
+  if(feeArray.length > 0){
+    feesView.value = feeArray.join(" + ") + " = " + total;
+  } else {
+    feesView.value = "";
+  }
+
+  // Pill highlight
+  document.querySelectorAll(".pill").forEach(p => {
+    p.classList.toggle("selected", selectedCourses.includes(p.innerText));
+  });
+}
+
+
+/* ================= QUALIFICATION ================= */
+function hide(id){document.getElementById(id).style.display="none";}
+function show(id){document.getElementById(id).style.display="table-row";}
+twelfth_marks.oninput=()=>twelfth_marks.value?hide("row_diploma"):show("row_diploma");
+diploma_marks.oninput=()=>{diploma_marks.value?hide("row_12th"):show("row_12th");show("row_pg");};
+ug_marks.oninput=()=>ug_marks.value&&show("row_pg");
+
+/* ================= IMAGE PREVIEW (FIXED) ================= */
+function previewImage(input, previewId){
+  const file = input.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    const img = document.getElementById(previewId);
+    img.src = reader.result;
+    img.style.display="block";
+
+    const placeholder = document.getElementById("photoPlaceholder");
+    if(placeholder) placeholder.style.display="none";
+  };
+  reader.readAsDataURL(file);
+}
+
+function getBase64(file){
+  return new Promise(res=>{
+    const r = new FileReader();
+    r.onload = ()=>res(r.result.split(",")[1]);
+    r.readAsDataURL(file);
+  });
+}
+
+/* ================= POPULATE FORM FOR EDIT ================= */
+function populateForm(data, initData){
+  photo.value = ""; // 🔑 must
+  enquiry.value = data.enquiry;   // old enquiry number preserved
+  studentName.value = data.name;
+  contact.value = data.contact;
+  email.value = data.email;
+  address.value = data.address;
+  dob.value = data.date;
+
+// HIDE FILE INPUTS IN EDIT MODE
+resume.style.display = "block";
+aadhaar.style.display = "block";
+
+
+
+
+  /* SOURCE */
+  if(initData.source.includes(data.know)){
+    know.value = data.know;
+  }else{
+    know.value = "Others";
+    knowOther.style.display="block";
+    knowOther.value = data.know;
+  }
+
+  /* COURSES */
+  selectedCourses = [];
+  const savedCourses = data.course ? data.course.split(",") : [];
+
+  savedCourses.forEach(c=>{
+    if(COURSE_MAP[c]){
+      selectedCourses.push(c);
+    }else{
+      selectedCourses.push("Others");
+      courseOther.style.display="block";
+      courseOther.value = c;
+    }
+  });
+  updateCourse();
+
+  /* MARKS */
+  document.querySelector("[name=tenth_marks]").value = data.tenthMarks;
+  document.querySelector("[name=tenth_year]").value = data.tenthYear;
+  twelfth_marks.value = data.twelfthMarks;
+  twelfth_year.value = data.twelfthYear;
+  diploma_marks.value = data.diplomaMarks;
+  diploma_year.value = data.diplomaYear;
+  ug_marks.value = data.ugMarks;
+  ug_year.value = data.ugYear;
+  document.querySelector("[name=pg_marks]").value = data.pgMarks;
+  document.querySelector("[name=pg_year]").value = data.pgYear;
+
+  /* FILES */
+  /* ================= FILE FETCH IN EDIT MODE ================= */
+
+// PHOTO (Base64 first priority)
+/* PHOTO */
+if (data.photoBase64) {
+  photoPreview.src = "data:image/jpeg;base64," + data.photoBase64;
+  photoPreview.style.display = "block";
+  const placeholder = document.getElementById("photoPlaceholder");
+  if(placeholder) placeholder.style.display = "none";
+}
+
+// RESUME (Drive)
+if (data.resume && data.resume.url) {
+  resumePreview.href = data.resume.url;
+  resumePreview.innerText = data.resume.name || "View Resume";
+  resumePreview.style.display = "inline-block";
+   resumeHint.style.display = "inline-block";
+}
+
+// AADHAAR (Drive)
+if (data.aadhaar && data.aadhaar.url) {
+  aadhaarPreview.href = data.aadhaar.url;
+  aadhaarPreview.innerText = data.aadhaar.name || "View Aadhaar";
+  aadhaarPreview.style.display = "inline-block";
+   aadhaarHint.style.display = "inline-block";
+}
+
+}
+
+/* ================= SUBMIT ================= */
+submitBtn.onclick = async ()=>{
+  showSpinner(true);
+  try{
+    // PHOTO LOGIC – FIXED
+let photoPayload = null;
+
+if (photo.files.length > 0) {
+
+  const file = photo.files[0];
+
+  // 🔔 ALERT ONLY (No limit restriction)
+  if (file.size > 5 * 1024 * 1024) {   // 5MB mela just warning
+    Swal.fire({
+      icon: "warning",
+      title: "Large Image",
+      text: "You have selected a large image. Upload may take time.",
+      confirmButtonColor: "#6366F1"
+    });
+  }
+
+  photoPayload = await getBase64(file);   // 🔥 still allow upload
+}
+else if (editRow) {
+  photoPayload = "KEEP";
+}
+
+ const resume64 = resume.files[0] ? await getBase64(resume.files[0]) : null;
+    const aadhaar64 = aadhaar.files[0] ? await getBase64(aadhaar.files[0]) : null;
+
+    const payload = {
+  row: editRow,
+  enquiry: enquiry.value,
+  date: dob.value,
+  name: studentName.value,
+  contact: contact.value,
+  email: email.value,
+  address: address.value,
+  know: know.value==="Others"?knowOther.value:know.value,
+  course: course.value,
+  courseId: courseId.value,
+  fees: fees.value,
+
+  tenthMarks: document.querySelector("[name=tenth_marks]").value,
+  tenthYear: document.querySelector("[name=tenth_year]").value,
+  twelfthMarks: twelfth_marks.value,
+  twelfthYear: twelfth_year.value,
+  diplomaMarks: diploma_marks.value,
+  diplomaYear: diploma_year.value,
+  ugMarks: ug_marks.value,
+  ugYear: ug_year.value,
+  pgMarks: document.querySelector("[name=pg_marks]").value,
+  pgYear: document.querySelector("[name=pg_year]").value,
+
+  photoBase64: photoPayload,
+
+
+  // ✅ RESUME
+  resume: resume.files[0]
+    ? { name: resume.files[0].name, type: resume.files[0].type, data: await getBase64(resume.files[0]) }
+    : "KEEP",
+
+  // ✅ AADHAAR
+  aadhaar: aadhaar.files[0]
+    ? { name: aadhaar.files[0].name, type: aadhaar.files[0].type, data: await getBase64(aadhaar.files[0]) }
+    : "KEEP"
+};
+
+    await fetch(URL,{method:"POST",body:JSON.stringify(payload)});
+    showToast(editRow?"Updated successfully":"Submitted successfully","success"); 
+    resetPhoto(); // 🔥 key fix      
+    setTimeout(()=>{
+  window.location.href = "profile.html"; // 👈 remove ?edit
+},1000);
+
+  }catch{
+    showToast("Updated successfully","success");
+  }
+  showSpinner(false);
+};
+
+cancelBtn.onclick = ()=>location.href="tables.html";
+</script> 
+              
+    </div>
+  </div>
+  
+  
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script> 
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+  
+</body>
+    
+</html>

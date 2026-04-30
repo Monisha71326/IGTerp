@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>Monisha</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+
+<style>
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ===== PREMIUM PAGINATION ===== */
+.page-btn,
+.page-number {
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(6px);
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.page-btn:hover,
+.page-number:hover {
+  background: #6366F1;
+  color: #fff;
+  transform: translateY(-3px) scale(1.05);
+}
+.page-number.active {
+  background: linear-gradient(135deg,#6366F1,#4F46E5);
+  color: #fff;
+  transform: scale(1.1);
+}
+.pagination-fixed {
+  position: fixed;
+  bottom:10px;
+  right: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: auto;
+}
+body.g-sidenav-show .pagination-fixed {
+  right: 40px !important;
+}
+.add-btn {
+  background: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30,58,138,.3);
+}
+.premium-table th {
+  color: #1e3a8a;
+  background-color: #cfe8ff;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 8px;
+  height: 50px;
+}
+.premium-table td {
+  text-align: center;
+  vertical-align: middle;
+  height: 70px;
+}
+
+/* ===== SEARCH BOX ===== */
+.search-box {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+.search-box:focus {
+  border-color: #5e72e4;
+  box-shadow: 0 0 5px rgba(94,114,228,0.6);
+  outline: none;
+}
+
+/* ===== MAIN CONTAINER (split layout) ===== */
+#mainContainer {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  overflow: hidden;
+}
+#tableCard {
+  width: 100%;
+  transition: 0.3s;
+}
+#tableCard.shrink {
+  width: 55%;          /* table left side - small */
+  min-width: 400px;
+  overflow-x: auto;   /* table scroll if needed */
+}
+#profileCard {
+  display: none;
+  width: 42%;
+  min-width: 350px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;        /* ✅ 20px → 0 மாத்துங்கள் */
+  
+  background: #ffffff;
+  border-radius: 16px;
+  border: 2px solid #c7d7f9;
+  box-shadow: 0 8px 32px rgba(30, 58, 138, 0.18);
+}
+
+#profileCard .card {
+  background: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ===== CONTACT BOX ===== */
+.contact-box {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+.contact-item:last-child { margin-bottom: 0; }
+
+#profileCard p {
+  text-align: center;
+  margin-left: 10px;
+  font-size: 16px;
+  align-items: center;
+  margin: 6px 0;
+}
+#profileCard b {
+  display: inline-block;
+  width: 130px;
+  color: #555;
+}
+</style>
+
+<body class="g-sidenav-show bg-gray-100">
+
+<script>
+(function () {
+  if (!localStorage.getItem("loggedIn")) {
+    window.location.replace("../pages/sign-in.html");
+  }
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+  };
+  window.addEventListener("pageshow", function () {
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.replace("../pages/sign-in.html");
+    }
+  });
+})();
+</script>
+
+<div class="min-height-300 bg-dark position-absolute w-100"></div>
+
+<!-- SIDENAV -->
+<aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
+  <div class="sidenav-header">
+    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+    <a class="navbar-brand m-0" href="https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html" target="_blank">
+      <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+      <span class="ms-1 font-weight-bold">MONISHA</span>
+    </a>
+  </div>
+  <hr class="horizontal dark mt-0">
+  <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/dashboard.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="ni ni-chart-bar-32 text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/tables.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-question-circle text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Enquiry</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+              <a class="nav-link" href="../pages/register.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>  
+                </div>
+                <span class="nav-link-text ms-1"> Register</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/billing.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Billing</span>
+              </a>
+              </li>
+      <li class="nav-item">
+              <a class="nav-link " href="../pages/viewschudeling.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+
+                </div>
+                <span class="nav-link-text ms-1">Batch Scheluding</span>
+              </a>
+            </li>
+            <li class="nav-item">
+          <a class="nav-link" href="../pages/studentview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-graduate text-dark text-sm"></i>
+           </div>
+            <span class="nav-link-text ms-1"> Certificate </span>
+          </a>
+        </li>
+       
+
+              
+      <li class="nav-item">
+        <a class="nav-link active" href="../pages/staffregisterview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-user-plus text-dark text-sm"></i>
+          </div>
+          <span class="nav-link-text ms-1">Staff Register</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/attendenceview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-calendar-check text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Staff Attendence</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/staffpayview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-money-bill-wave text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Staff pay</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/studentattview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-id-card text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Student Attendence</span>
+        </a>
+      </li>
+      
+
+            
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/courseview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-book-open text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Course</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/departmentview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-building text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Department</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../pages/designationview.html">
+          <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+          </div>
+          <span class="nav-link-text ms-1">Designation</span>
+        </a>
+      </li>
+       
+    </ul>
+  </div>
+  <div class="sidenav-footer mx-3">
+    <div class="card card-plain shadow-none" id="sidenavCard">
+      <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+      <div class="card-body text-center p-3 w-100 pt-0">
+        <div class="docs-info">
+          <h6 class="mb-0">Need help?</h6>
+          <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
+    <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content position-relative border-radius-lg">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="false">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+          <li class="breadcrumb-item text-sm text-white active" aria-current="page">Tables</li>
+        </ol>
+        <h6 class="font-weight-bolder text-white mb-0">Tables</h6>
+      </nav>
+      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          <div class="input-group">
+            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Type here...">
+          </div>
+        </div>
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+              <i class="fa fa-user me-sm-1"></i>
+              <span class="d-sm-inline d-none">Sign In</span>
+            </a>
+          </li>
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line bg-white"></i>
+                <i class="sidenav-toggler-line bg-white"></i>
+                <i class="sidenav-toggler-line bg-white"></i>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item px-3 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-white p-0">
+              <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown pe-2 d-flex align-items-center">
+            <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-bell cursor-pointer"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex py-1">
+                    <div class="my-auto">
+                      <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="text-sm font-weight-normal mb-1"><span class="font-weight-bold">New message</span> from Laur</h6>
+                      <p class="text-xs text-secondary mb-0"><i class="fa fa-clock me-1"></i>13 minutes ago</p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+
+          <!-- CARD HEADER -->
+          <div class="card-header pb-0 d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center text-uppercase fw-bold" style="margin:0; gap:10px;">
+              <div class="d-flex align-items-center justify-content-center text-white rounded-circle shadow"
+                   style="width:35px; height:35px; font-size:16px; background-color:#1e3a8a;">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <span style="color:#1e3a8a; font-size:17px;">View Staff</span>
+            </div>
+            <button onclick="goToProfile()" class="add-btn">
+              <i class="fas fa-user-plus"></i> Add Staff
+            </button>
+          </div>
+
+          <div class="card-body px-0 pt-0 pb-2">
+            <div id="mainContainer" class="px-3" style="margin-top:20px;">
+
+              <!-- LEFT: TABLE -->
+              <div id="tableCard">
+                <div class="table-responsive">
+                  <table class="table align-items-center mb-0 premium-table">
+                    <thead>
+                      <tr>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Full Name</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Mobile No</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Department</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Designation</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Employee ID</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Appointment No</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">Status</th>
+                        <th class="text-uppercase text-sm font-weight-bolder opacity-7">View</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- RIGHT: PROFILE CARD -->
+              <div id="profileCard" style="min-width:380px; max-width:420px;">
+                <div class="card shadow-sm mt-3">
+                  <div class="ps-3 pt-2">
+                    <h6 class="mb-0">Staff Details</h6>
+                  </div>
+
+                  <div style="text-align:center; margin-bottom:15px;">
+                    <img id="p_photo" src=""
+                         style="width:150px;height:150px;border-radius:50%;object-fit:cover;display:block;margin:auto;">
+                  </div>
+
+                  <div class="card-body">
+                    <h6 class="text-center mb-1" id="p_name"></h6>
+                    <p class="text-center text-muted mb-2" id="p_id"></p>
+                    <p class="text-center mb-3"><b>Designation :</b> <span id="p_designation"></span></p>
+
+                    <!-- CONTACT -->
+                    <div class="contact-box">
+                      <div class="contact-item">
+                        <i class="fa fa-envelope text-primary"></i>
+                        <span id="p_email"></span>
+                      </div>
+                      <div class="contact-item">
+                        <i class="fa fa-phone text-success"></i>
+                        <span id="p_mobile"></span>
+                      </div>
+                    </div>
+
+                    <!-- FULL DETAILS -->
+                    <h6 class="bg-gradient-dark text-white p-2 rounded">Full Details:</h6>
+                    <div class="bg-light p-3 rounded shadow-sm">
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-user text-primary me-2"></i><span class="fw-semibold me-2">Father Name</span><span class="me-2">:</span><span id="p_father"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-user text-primary me-2"></i><span class="fw-semibold me-2">Mother Name</span><span class="me-2">:</span><span id="p_mother"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-calendar text-primary me-2"></i><span class="fw-semibold me-2">DOB</span><span class="me-2">:</span><span id="p_dob"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-hourglass text-primary me-2"></i><span class="fw-semibold me-2">Age</span><span class="me-2">:</span><span id="p_age"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-venus-mars text-primary me-2"></i><span class="fw-semibold me-2">Gender</span><span class="me-2">:</span><span id="p_gender"></span></div>
+                      <div class="d-flex align-items-start mb-2"><i class="fa fa-map-marker text-primary me-2 mt-1"></i><span class="fw-semibold me-2">Address</span><span class="me-2">:</span><span id="p_address"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-id-card text-primary me-2"></i><span class="fw-semibold me-2">Aadhaar No</span><span class="me-2">:</span><span id="p_aadhar"></span></div>
+                    </div>
+
+                    <!-- EDUCATION -->
+                    <h6 class="bg-gradient-dark text-white p-2 rounded mt-3">Education Details:</h6>
+                    <div class="bg-light p-3 rounded shadow-sm">
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-graduation-cap text-primary me-2"></i><span class="fw-semibold me-2">Qualification</span><span class="me-2">:</span><span id="p_qualification"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-book text-primary me-2"></i><span class="fw-semibold me-2">Course</span><span class="me-2">:</span><span id="p_course"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-university text-primary me-2"></i><span class="fw-semibold me-2">College</span><span class="me-2">:</span><span id="p_college"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-calendar text-primary me-2"></i><span class="fw-semibold me-2">Year</span><span class="me-2">:</span><span id="p_year"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-briefcase text-primary me-2"></i><span class="fw-semibold me-2">Experience</span><span class="me-2">:</span><span id="p_experience"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-building text-primary me-2"></i><span class="fw-semibold me-2">Previous Institute</span><span class="me-2">:</span><span id="p_prev_institute"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-sitemap text-primary me-2"></i><span class="fw-semibold me-2">Department</span><span class="me-2">:</span><span id="p_department"></span></div>
+                    </div>
+
+                    <!-- BANK -->
+                    <h6 class="bg-gradient-dark text-white p-2 rounded mt-3">Bank Details:</h6>
+                    <div class="bg-light p-3 rounded shadow-sm">
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-user text-primary me-2"></i><span class="fw-semibold me-2">Account Holder Name</span><span class="me-2">:</span><span id="p_acc_name"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-credit-card text-primary me-2"></i><span class="fw-semibold me-2">Account No</span><span class="me-2">:</span><span id="p_acc_no"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-university text-primary me-2"></i><span class="fw-semibold me-2">IFSC</span><span class="me-2">:</span><span id="p_ifsc"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-bank text-primary me-2"></i><span class="fw-semibold me-2">Bank Name</span><span class="me-2">:</span><span id="p_bank"></span></div>
+                    </div>
+
+                    <!-- JOINING -->
+                    <h6 class="bg-gradient-dark text-white p-2 rounded mt-3">Joining Details:</h6>
+                    <div class="bg-light p-3 rounded shadow-sm">
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-calendar text-primary me-2"></i><span class="fw-semibold me-2">Date of Joining</span><span class="me-2">:</span><span id="p_joining"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-id-badge text-primary me-2"></i><span class="fw-semibold me-2">Appointment No</span><span class="me-2">:</span><span id="p_appointment"></span></div>
+                      <div class="d-flex align-items-center mb-2"><i class="fa fa-clock text-primary me-2"></i><span class="fw-semibold me-2">Shift</span><span class="me-2">:</span><span id="p_shift"></span></div>
+                    </div>
+
+                    <!-- PROOF -->
+                    <h6 class="bg-gradient-dark text-white p-2 rounded mt-3">Proof</h6>
+                    <div class="row g-3 justify-content-center">
+
+                      <!-- AADHAR -->
+                      <div class="col-6">
+                        <div class="card shadow-sm h-100">
+                          <div class="card-body p-2">
+                            <h6 class="mb-2" style="font-size:14px;">Aadhar Card</h6>
+                            <img id="p_aadhar_img" src="" class="img-fluid rounded w-100" style="height:100px; object-fit:cover;">
+                            <div class="d-flex gap-1 mt-2">
+                              <a id="p_aadhar_link" target="_blank" class="btn btn-primary btn-sm w-100 d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-eye"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- PAN -->
+                      <div class="col-6">
+                        <div class="card shadow-sm h-100">
+                          <div class="card-body p-2">
+                            <h6 class="mb-2" style="font-size:14px;">PAN Card</h6>
+                            <img id="p_pan_img" src="" class="img-fluid rounded w-100" style="height:100px; object-fit:cover;">
+                            <div class="d-flex gap-1 mt-2">
+                              <a id="p_pan_link" target="_blank" class="btn btn-primary btn-sm w-100">
+                                <i class="fa-solid fa-eye"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- RESUME -->
+                      <div class="col-6">
+                        <div class="card shadow-sm h-100">
+                          <div class="card-body p-2">
+                            <h6 class="mb-2" style="font-size:14px;">Resume</h6>
+                            <img id="p_resume_img" src="" class="img-fluid rounded w-100" style="height:100px; object-fit:cover;">
+                            <div class="d-flex gap-1 mt-2">
+                              <a id="p_resume_link" target="_blank" class="btn btn-primary btn-sm w-100">
+                                <i class="fa-solid fa-eye"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- DEGREE -->
+                      <div class="col-6">
+                        <div class="card shadow-sm h-100">
+                          <div class="card-body p-2">
+                            <h6 class="mb-2" style="font-size:14px;">Degree Certificate</h6>
+                            <img id="p_degree_img" src="" class="img-fluid rounded w-100" style="height:100px; object-fit:cover;">
+                            <div class="d-flex gap-1 mt-2">
+                              <a id="p_degree_link" target="_blank" class="btn btn-primary btn-sm w-100 d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-eye"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- SKILL CERT -->
+                      <div class="col-6">
+                        <div class="card shadow-sm h-100">
+                          <div class="card-body p-2">
+                            <h6 class="mb-2" style="font-size:14px;">Skill Certificate</h6>
+                            <img id="p_skill_img" src="" class="img-fluid rounded w-100" style="height:100px; object-fit:cover;">
+                            <div class="d-flex gap-1 mt-2">
+                              <a id="p_skill_link" target="_blank" class="btn btn-primary btn-sm w-100 d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-eye"></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div><!-- end row proof -->
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="row mt-5 text-center">
+                      <div class="col-4">
+                        <button class="btn btn-success w-100" onclick="editProfile()">
+                          <i class="fa fa-edit"></i> Edit
+                        </button>
+                      </div>
+                      <div class="col-4">
+                        <button class="btn btn-danger w-100" onclick="deleteProfile()">
+                          <i class="fa fa-trash"></i> Delete
+                        </button>
+                      </div>
+                      <div class="col-4">
+                        <button class="btn btn-dark text-white w-100" onclick="closeProfile()">
+                          <i class="fa fa-arrow-left"></i> Back
+                        </button>
+                      </div>
+                    </div>
+
+                  </div><!-- card-body -->
+                </div><!-- card -->
+              </div><!-- profileCard -->
+
+            </div><!-- mainContainer -->
+          </div><!-- card-body -->
+        </div><!-- card -->
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- PAGINATION -->
+<div class="pagination-fixed container-fluid">
+  <button class="page-btn" onclick="prevPage()"><i class="fas fa-chevron-left"></i></button>
+  <div id="paginationNumbers" class="d-flex gap-2"></div>
+  <button class="page-btn" onclick="nextPage()"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- JS -->
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+/* ============================================================
+   CONFIG
+============================================================ */
+const viewURL = "https://script.google.com/macros/s/AKfycby6SWOW2ox6sB4F572lkuPRGsCR-ukvGbWVAMhQQM7gmNH4ykZX4cBYJkKDZWItkuWJ/exec";
+
+const tbody = document.getElementById("tableBody");
+let currentPage = 1;
+const rowsPerPage = 4;
+let allData = [];
+let profileDataMap = {}; // empId -> full row object (from showProfile fetch)
+
+/* ============================================================
+   GOOGLE DRIVE IMAGE URL FIX
+============================================================ */
+function getDriveImageUrl(link) {
+  if (!link || typeof link !== "string") return "";
+  let fileId = "";
+  let match = link.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) fileId = match[1];
+  let match2 = link.match(/id=([a-zA-Z0-9_-]+)/);
+  if (match2) fileId = match2[1];
+  if (!fileId) return "";
+  return "https://lh3.googleusercontent.com/d/" + fileId;
+}
+
+/* ============================================================
+   DATE FORMAT
+============================================================ */
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-GB");
+}
+
+/* ============================================================
+   LOAD TABLE (pagination version)
+============================================================ */
+async function loadStaffTable() {
+  try {
+    Swal.fire({ title: 'Loading Staff Data...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+    const res = await fetch(viewURL + "?action=get_staff");
+    const data = await res.json();
+    Swal.close();
+
+    if (!Array.isArray(data)) {
+      Swal.fire('Error', 'Unexpected sheet format ❌', 'error');
+      return;
+    }
+
+    allData = data;
+    currentPage = 1;
+    renderTable();
+
+  } catch (err) {
+    console.error(err);
+    Swal.fire('Error', 'Failed to load staff data ❌', 'error');
+  }
+}
+
+/* ============================================================
+   RENDER TABLE
+============================================================ */
+function renderTable() {
+  tbody.innerHTML = "";
+
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const pageData = allData.slice(start, end);
+
+  pageData.forEach((row, index) => {
+    const globalIndex = start + index;
+    const empId = row[23] || "";
+    const status = row[33] || "Active";
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${row[0] || ""}</td>
+      <td>${row[7] || ""}</td>
+      <td>${row[10] || ""}</td>
+      <td>${row[11] || ""}</td>
+      <td>${row[23] || ""}</td>
+      <td>${row[24] || ""}</td>
+
+      <!-- STATUS BUTTON -->
+      <td>
+        <button class="btn btn-sm ${status === "Active" ? "btn-success" : "btn-secondary"}"
+          onclick="updateStatus('${empId}', '${status}')">
+          ${status}
+        </button>
+      </td>
+
+      <!-- VIEW -->
+      <td class="text-center">
+        <i class="fa fa-eye text-primary fs-5" style="cursor:pointer"
+           onclick="viewRegistration(${start + index + 2})"></i>
+      </td>
+
+      
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  renderPagination();
+}
+
+/* ============================================================
+   PAGINATION
+============================================================ */
+function renderPagination() {
+  const container = document.getElementById("paginationNumbers");
+  container.innerHTML = "";
+  const totalPages = Math.ceil(allData.length / rowsPerPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.className = "page-number";
+    if (i === currentPage) btn.classList.add("active");
+    btn.innerText = i;
+    btn.onclick = () => { currentPage = i; renderTable(); };
+    container.appendChild(btn);
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(allData.length / rowsPerPage);
+  if (currentPage < totalPages) { currentPage++; renderTable(); }
+}
+
+function prevPage() {
+  if (currentPage > 1) { currentPage--; renderTable(); }
+}
+
+/* ============================================================
+   STATUS UPDATE
+============================================================ */
+function updateStatus(empId, currentStatus) {
+  const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
+
+  // நேரடியாக loading காட்டு - confirm popup இல்லை
+  Swal.fire({ 
+    title: 'Updating Status...', 
+    allowOutsideClick: false, 
+    didOpen: () => Swal.showLoading() 
+  });
+
+  const url = viewURL + "?mode=status&empid=" + encodeURIComponent(empId) + "&status=" + encodeURIComponent(newStatus);
+
+  fetch(url)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === "ok") {
+        Swal.fire('Updated!', 'Status Updated ✅', 'success');
+        loadStaffTable();
+      } else {
+        Swal.fire('Error', 'Update Failed ❌', 'error');
+      }
+    })
+    .catch(err => { 
+      console.error(err); 
+      Swal.fire('Error', 'Error updating status', 'error'); 
+    });
+}
+
+/* ============================================================
+   VIEW REGISTRATION → open profile panel
+============================================================ */
+function viewRegistration(rowIndex) {
+  const rowData = allData[rowIndex - 2];
+
+  if (!rowData) { 
+    alert("Data not found ❌"); 
+    return; 
+  }
+
+  // Array row-ஐ named object-ஆக map பண்று
+  const r = {
+    "Employee ID":          rowData[23] || "",
+    "Full Name":            rowData[0]  || "",
+    "Designation":          rowData[11] || "",
+    "Email":                rowData[8]  || "",
+    "Mobile":               rowData[7]  || "",
+    "Father Name":          rowData[1]  || "",
+    "Mother Name":          rowData[2]  || "",
+    "DOB":                  rowData[3]  || "",
+    "Age":                  rowData[4]  || "",
+    "Gender":               rowData[5]  || "",
+    "Address":              rowData[6]  || "",
+    "Aadhar Number":        rowData[9] || "",
+    "Photo":                rowData[27] || "",
+    "Qualification":        rowData[14] || "",
+    "Course":               rowData[15] || "",
+    "College":              rowData[16] || "",
+    "Year":                 rowData[17] || "",
+    "Experience":           rowData[12] || "",
+    "Previous Institute":   rowData[13] || "",
+    "Department":           rowData[10] || "",
+    "Account Holder Name":  rowData[18] || "",
+    "Account No":           rowData[19] || "",
+    "IFSC":                 rowData[20] || "",
+    "Bank Name":            rowData[21] || "",
+    "Date of Joining":      rowData[22] || "",
+    "Appointment No":       rowData[24] || "",
+    "Shift":                rowData[25] || "",
+    "Aadhar Card":          rowData[28] || "",
+    "PAN Card":             rowData[29] || "",
+    "Resume":               rowData[30] || "",
+    "Degree Certificate":   rowData[31] || "",
+    "Skill Certificate":    rowData[32] || "",
+  };
+
+  showProfile(r);
+}
+/* ============================================================
+   SHOW PROFILE (from full object - like file 1)
+============================================================ */
+function showProfile(r) {
+ document.getElementById("profileCard").style.display = "flex";
+document.getElementById("profileCard").style.flexDirection = "column";
+  document.getElementById("tableCard").classList.add("shrink");
+
+  document.getElementById("p_id").innerText = r["Employee ID"] || "";
+  document.getElementById("p_name").innerText = r["Full Name"] || "";
+  document.getElementById("p_designation").innerText = r["Designation"] || "";
+  document.getElementById("p_email").innerText = r["Email"] || "";
+  document.getElementById("p_mobile").innerText = r["Mobile"] || "";
+  document.getElementById("p_father").innerText = r["Father Name"] || "";
+  document.getElementById("p_mother").innerText = r["Mother Name"] || "";
+  document.getElementById("p_dob").innerText = formatDate(r["DOB"] || r["Date of Birth"]);
+  document.getElementById("p_age").innerText = r["Age"] || r["AGE"] || "";
+  document.getElementById("p_gender").innerText = r["Gender"] || r["GENDER"] || "";
+  document.getElementById("p_address").innerText = r["Address"] || r["ADDRESS"] || "";
+  document.getElementById("p_aadhar").innerText = r["Aadhar Number"] || "";
+
+  // PHOTO
+  const photoImg = document.getElementById("p_photo");
+  if (photoImg) photoImg.src = getDriveImageUrl(r["Photo"]);
+
+  // EDUCATION
+  document.getElementById("p_qualification").innerText = r["Qualification"] || "";
+  document.getElementById("p_course").innerText = r["Course"] || "";
+  document.getElementById("p_college").innerText = r["College"] || "";
+  document.getElementById("p_year").innerText = r["Year"] || "";
+  document.getElementById("p_experience").innerText = r["Experience"] || "";
+  document.getElementById("p_prev_institute").innerText = r["Previous Institute"] || "";
+  document.getElementById("p_department").innerText = r["Department"] || "";
+
+  // BANK
+  document.getElementById("p_acc_name").innerText = r["Account Holder Name"] || "";
+  document.getElementById("p_acc_no").innerText = r["Account No"] || "";
+  document.getElementById("p_ifsc").innerText = r["IFSC"] || "";
+  document.getElementById("p_bank").innerText = r["Bank Name"] || "";
+
+  // JOINING
+  document.getElementById("p_joining").innerText = formatDate(r["Date of Joining"]);
+  document.getElementById("p_appointment").innerText = r["Appointment No"] || "";
+  document.getElementById("p_shift").innerText = r["Shift"] || "";
+
+  // AADHAR IMG
+  const aadharImg = document.getElementById("p_aadhar_img");
+  const aadharLinkTag = document.getElementById("p_aadhar_link");
+  const aadharLink = r["Aadhar Card"];
+  if (aadharLink) {
+    if (aadharLinkTag) aadharLinkTag.href = aadharLink;
+    aadharImg.src = aadharLink.toLowerCase().includes(".pdf")
+      ? "https://via.placeholder.com/150?text=PDF"
+      : getDriveImageUrl(aadharLink);
+  } else { aadharImg.src = "https://via.placeholder.com/150"; }
+
+  // PAN IMG
+  const panImg = document.getElementById("p_pan_img");
+  const panLinkTag = document.getElementById("p_pan_link");
+  const panLink = r["PAN Card"];
+  if (panImg && panLink) {
+    panImg.src = getDriveImageUrl(panLink) || "https://via.placeholder.com/150";
+    if (panLinkTag) panLinkTag.href = panLink;
+  } else if (panImg) { panImg.src = "https://via.placeholder.com/150"; }
+
+  // RESUME
+  const resumeImg = document.getElementById("p_resume_img");
+  const resumeLinkTag = document.getElementById("p_resume_link");
+  const resumeLink = r["Resume"];
+  if (resumeLink) {
+    if (resumeLinkTag) resumeLinkTag.href = resumeLink;
+    resumeImg.src = resumeLink.toLowerCase().includes(".pdf")
+      ? "https://via.placeholder.com/150?text=PDF"
+      : getDriveImageUrl(resumeLink);
+  } else { resumeImg.src = "https://via.placeholder.com/150"; }
+
+  // DEGREE
+  const degreeImg = document.getElementById("p_degree_img");
+  const degreeLinkTag = document.getElementById("p_degree_link");
+  const degreeLink = r["Degree Certificate"];
+  if (degreeLink) {
+    if (degreeLinkTag) degreeLinkTag.href = degreeLink;
+    degreeImg.src = degreeLink.toLowerCase().includes(".pdf")
+      ? "https://via.placeholder.com/150?text=PDF"
+      : getDriveImageUrl(degreeLink);
+  } else { degreeImg.src = "https://via.placeholder.com/150"; }
+
+  // SKILL CERT
+  const skillImg = document.getElementById("p_skill_img");
+  const skillLinkTag = document.getElementById("p_skill_link");
+  const skillLink = r["Skill Certificate"];
+  if (skillLink) {
+    if (skillLinkTag) skillLinkTag.href = skillLink;
+    skillImg.src = skillLink.toLowerCase().includes(".pdf")
+      ? "https://via.placeholder.com/150?text=PDF"
+      : getDriveImageUrl(skillLink);
+  } else { skillImg.src = "https://via.placeholder.com/150"; }
+}
+
+/* ============================================================
+   SHOW PROFILE FROM ROW ARRAY (fallback)
+============================================================ */
+function showProfileFromRow(row) {
+  // Map array index to named keys - adjust indices to match your sheet
+  const r = {
+    "Full Name": row[0],
+    "Mobile": row[7],
+    "Department": row[10],
+    "Designation": row[11],
+    "Employee ID": row[23],
+    "Appointment No": row[24],
+  };
+  showProfile(r);
+}
+
+/* ============================================================
+   EDIT FROM PROFILE PANEL
+============================================================ */
+function editProfile() {
+  const empId = document.getElementById("p_id").innerText;
+  window.location.href = "staffregister.html?empid=" + encodeURIComponent(empId) + "&mode=edit";
+}
+
+/* ============================================================
+   DELETE FROM PROFILE PANEL
+============================================================ */
+function deleteProfile() {
+  const empId = document.getElementById("p_id").innerText;
+  if (!empId) { alert("No Employee Selected"); return; }
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "This record will be deleted ❌",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!'
+  }).then(result => {
+    if (result.isConfirmed) {
+      Swal.fire({ title: 'Deleting...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+      const deleteURL = viewURL + "?mode=delete&empid=" + encodeURIComponent(empId);
+      fetch(deleteURL)
+        .then(res => res.json())
+        .then(res => {
+          Swal.close();
+          if (res.status === "ok") {
+            Swal.fire('Deleted!', 'Deleted Successfully ✅', 'success');
+            closeProfile();
+            loadStaffTable();
+          } else {
+            Swal.fire('Error', res.message || "Delete failed", 'error');
+          }
+        })
+        .catch(err => { console.error(err); Swal.close(); Swal.fire('Error', 'Delete error', 'error'); });
+    }
+  });
+}
+
+/* ============================================================
+   DELETE FROM TABLE ROW
+============================================================ */
+function deleteRegistration(rowNo) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "This record will be deleted ❌",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!'
+  }).then(result => {
+    if (result.isConfirmed) {
+      Swal.fire({ title: 'Deleting...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+      fetch(viewURL, {
+        method: "POST",
+        body: JSON.stringify({ action: "delete_staff", row: rowNo })
+      })
+        .then(res => res.json())
+        .then(msg => {
+          Swal.close();
+          if (msg.status === "deleted") {
+            Swal.fire('Deleted!', 'Staff deleted ✅', 'success');
+            loadStaffTable();
+          } else {
+            Swal.fire('Error', 'Delete failed ❌', 'error');
+          }
+        })
+        .catch(err => { console.error(err); Swal.close(); Swal.fire('Error', 'Something went wrong ❌', 'error'); });
+    }
+  });
+}
+
+/* ============================================================
+   EDIT FROM TABLE ROW
+============================================================ */
+function editRegistration(rowIndex) {
+  const rowData = allData[rowIndex - 2];
+  const empId = rowData[23];
+  if (!empId) { alert("Employee ID not found ❌"); return; }
+  window.location.href = `staffregister.html?empid=${empId}&mode=edit`;
+}
+
+/* ============================================================
+   CLOSE PROFILE PANEL
+============================================================ */
+function closeProfile() {
+  document.getElementById("profileCard").style.display = "none";
+  document.getElementById("tableCard").classList.remove("shrink");
+}
+
+/* ============================================================
+   ADD STAFF
+============================================================ */
+function goToProfile() {
+  window.location.href = "../pages/staffregister.html";
+}
+
+/* ============================================================
+   SEARCH
+============================================================ */
+document.getElementById("searchInput").addEventListener("keyup", function () {
+  const value = this.value.toLowerCase().trim();
+
+  document.querySelectorAll("#tableBody tr").forEach(row => {
+    const text = row.innerText.toLowerCase();
+    const statusBtn = row.querySelector("button");
+    const status = statusBtn ? statusBtn.innerText.toLowerCase() : "";
+
+    // status first letter match
+    if (value === "a" || value === "i") {
+      row.style.display = status.startsWith(value) ? "" : "none";
+    } 
+    else {
+      row.style.display = text.includes(value) ? "" : "none";
+    }
+  });
+});
+/* ============================================================
+   INIT
+============================================================ */
+window.addEventListener("DOMContentLoaded", loadStaffTable);
+</script>
+
+</body>
+</html>

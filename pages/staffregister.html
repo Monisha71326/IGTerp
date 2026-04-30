@@ -1,0 +1,1370 @@
+
+<!--
+=========================================================
+* Argon Dashboard 3 - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  
+  <title>
+    Monisha
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <style>
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+  /* ================= PREMIUM FORM STYLING ================= */
+
+/* Form container */
+form#profileForm {
+ 
+  padding: 25px;
+  border-radius: 12px;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ================= COURSE PILLS ================= */
+.course-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.course-box .pill {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 25px;
+  border: 1.5px solid #007bff;
+  color: #007bff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.course-box .pill:hover {
+  background: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.course-box .pill.selected {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* ================= UPLOAD PHOTO BOX ================= */
+.upload-box-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  left: 900px;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #007bff;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+}
+
+.upload-box:hover {
+  background: #e6f0ff;
+  border-color: #0056b3;
+}
+
+.upload-box .plus {
+  font-size: 28px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.upload-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: none;
+}
+
+/* Upload text */
+.upload-text {
+  text-align: center;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ================= BUTTONS ================= */
+#submitBtn, #cancelBtn {
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+#submitBtn {
+  background: #007bff;
+  border: none;
+  color: #fff;
+}
+
+#submitBtn:hover {
+  background: #0056b3;
+}
+
+#cancelBtn {
+  background: #dc3545;
+  border: none;
+  color: #fff;
+}
+
+#cancelBtn:hover {
+  background: #a71d2a;
+}
+
+/* ================= TOAST ================= */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 220px;
+  background: #007bff;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.error {
+  background: #dc3545;
+}
+
+/* ================= CONFIRM BOX ================= */
+.confirm-overlay {
+  display: none;
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.confirm-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.confirm-box h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.confirm-box p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #555;
+}
+
+/* ================= SPINNER ================= */
+body.loading::after {
+  content: "";
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.25);
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+body.loading::before {
+  content: "";
+  position: fixed;
+  left:50%;
+  top:50%;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #007bff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+/* ===== COURSE OUTER BOX ===== */
+.course-box {
+  border: 1px solid rgba(99,102,241,0.35);
+  border-radius: 16px;
+  padding: 16px;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  transition: all 0.3s ease;
+}
+
+.course-box:hover {
+  box-shadow: 
+    0 12px 28px rgba(99,102,241,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+/* Optional title inside box */
+.course-box-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.premium-header{
+  background: linear-gradient(135deg,#5e72e4,#825ee4);
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.premium-header h2{
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.premium-header p{
+  opacity: 0.9;
+  margin: 0;
+}
+.back-floating-btn {
+  position: fixed;
+  top: 50px;        /* adjust based on header height */
+  left: 300px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #5e72e4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-floating-btn i {
+  font-size: 18px;
+}
+
+</style>
+  </head>
+<body class="g-sidenav-show bg-gray-100">
+  <script>
+(function () {
+  // 🔒 Login check
+  if (!localStorage.getItem("loggedIn")) {
+    window.location.replace("../pages/sign-in.html");
+  }
+
+  // 🚫 Back button block
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+  };
+
+  // 🔄 Cache / reload safety
+  window.addEventListener("pageshow", function () {
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.replace("../pages/sign-in.html");
+    }
+  });
+})();
+</script>
+
+  <div class="position-absolute w-100 min-height-300 top-0" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+    <span class="mask bg-primary opacity-6"></span>
+  </div>
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">MONISHA</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/dashboard.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-chart-bar-32 text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-question-circle text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1"> Enquiry</span>
+          </a>
+        </li>
+        <li class="nav-item">
+              <a class="nav-link" href="../pages/register.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>  
+                </div>
+                <span class="nav-link-text ms-1"> Register</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/billing.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Billing</span>
+              </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/viewschudeling.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+
+                </div>
+                <span class="nav-link-text ms-1">Batch Scheluding</span>
+              </a>
+            </li>
+            <li class="nav-item">
+          <a class="nav-link" href="../pages/studentview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-graduate text-dark text-sm"></i>
+           </div>
+            <span class="nav-link-text ms-1"> Certificate </span>
+          </a>
+        </li>
+        
+                
+        <li class="nav-item">
+          <a class="nav-link active" href="../pages/staffregisterview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-user-plus text-dark text-sm"></i>
+            </div>
+            <span class="nav-link-text ms-1">Staff Register</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/attendenceview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-calendar-check text-dark text-sm"></i>
+            </div>
+            <span class="nav-link-text ms-1">Staff Attendence</span>
+          </a>
+        </li>
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/staffpayview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-money-bill-wave text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Staff pay </span>
+          </a>
+        </li>
+
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/studentattview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-id-card text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Student Attendence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item">
+                <a class="nav-link " href="../pages/courseview.html">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                   <i class="fas fa-book-open text-dark text-sm opacity-10"></i>
+  
+                    </div>
+                    <span class="nav-link-text ms-1">Course</span>
+                </a>
+                </li>
+                
+       
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/departmentview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-building  text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1"> Department </span>
+          </a>
+        </li>
+        
+       <li class="nav-item">
+          <a class="nav-link " href="../pages/designationview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+           <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+            </div>
+            <span class="nav-link-text ms-1"> Designation</span>
+          </a>
+        </li>
+         
+         </ul>
+    </div>
+    <div class="sidenav-footer mx-3 ">
+      <div class="card card-plain shadow-none" id="sidenavCard">
+        <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+        <div class="card-body text-center p-3 w-100 pt-0">
+          <div class="docs-info">
+            <h6 class="mb-0">Need help?</h6>
+            <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
+      <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+    </div>
+  </aside>
+  <div class="main-content position-relative max-height-vh-100 h-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2 mt-n11">
+      <div class="container-fluid py-1">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="text-white opacity-5" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profile</li>
+          </ol>
+          <h6 class="text-white font-weight-bolder ms-2">Profile</h6>
+        </nav>
+        <div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Type here...">
+            </div>
+          </div>
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Sign In</span>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ps-3 pe-0 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                  </div>
+                </a>
+              </a>
+            </li>
+            <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end px-2 py-3 ms-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New message</span> from Laur
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark me-3">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New album</span> by Travis Scott
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="avatar avatar-sm bg-gradient-secondary me-3 my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Payment successfully completed
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+
+        <form id="registrationForm" enctype="multipart/form-data">
+         
+<div class="position-relative d-flex align-items-center justify-content-center mb-4">
+  <a href="courseview.html" class="back-floating-btn">
+  <i class="fas fa-arrow-left"></i>
+</a>
+  <h3 class="mb-0">Staff Register Form</h3>
+</div>
+
+
+
+<!-- NAV TABS -->
+<ul class="nav nav-pills nav-justified mb-4">
+  <li class="nav-item">
+    <button class="nav-link active" id="personal-tab" data-bs-toggle="pill" data-bs-target="#personal" type="button">Personal</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" id="professional-tab" data-bs-toggle="pill" data-bs-target="#professional" type="button">Professional</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" id="education-tab" data-bs-toggle="pill" data-bs-target="#education" type="button">Education</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" id="bank-tab" data-bs-toggle="pill" data-bs-target="#bank" type="button">Bank</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" id="joining-tab" data-bs-toggle="pill" data-bs-target="#joining" type="button">Joining</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link" id="proof-tab" data-bs-toggle="pill" data-bs-target="#proof" type="button">Proof</button>
+  </li>
+</ul>
+ 
+<div class="tab-content">
+ 
+
+
+<div class="tab-pane fade show active" id="personal">
+   <!-- SQUARE PHOTO UPLOAD -->
+<div style="text-align:right; margin-bottom:10px;">
+
+  <!-- CLICKABLE SQUARE -->
+  <label for="photo" style="display:inline-block; cursor:pointer;">
+    <div id="photoContainer" style="
+      width:100px;
+      height:90px;
+      border:2px dashed #999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    ">
+      <!-- PREVIEW IMAGE -->
+      <img id="photoPreview"
+           style="
+             display:none;
+             width:100%;
+             height:100%;
+             object-fit:cover;
+             position:absolute;
+             top:0;
+             left:0;
+           ">
+      <!-- Placeholder text -->
+      <span id="photoPlaceholder" style="color:#999;">Photo</span>
+    </div>
+  </label>
+
+  <!-- FILE INPUT (HIDDEN) -->
+  <input type="file"
+         id="photo"
+         accept="image/*"
+         style="display:none"
+         onchange="previewImage(this,'photoPreview')">
+</div>
+  
+
+
+
+  <!-- PERSONAL DETAILS (BELOW PHOTO) -->
+  <div class="row">
+    <div class="col-md-6">
+      <label>Full Name</label>
+      <input  type="text" class="form-control" id="full_name" name="full_name">
+    </div>
+
+    <div class="col-md-6">
+      <label>Father Name</label>
+      <input type="text"class="form-control" id="father_name" name="father_name">
+    </div>
+
+    <div class="col-md-6">
+      <label>Mother Name</label>
+      <input type="text"class="form-control" id="mother_name" name="mother_name">
+    </div>
+
+    <div class="col-md-6">
+      <label>Date of Birth</label>
+      <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+    </div>
+
+    <div class="col-md-6">
+      <label>Age</label>
+      <input class="form-control" id="age" name="age">
+    </div>
+
+    <div class="col-md-6">
+      <label>Gender</label>
+      <select class="form-control" id="gender" name="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="col-md-12">
+      <label>Address</label>
+      <textarea class="form-control" id="address"name="address"></textarea>
+    </div>
+
+    <div class="col-md-6">
+      <label>Mobile</label>
+      <input class="form-control" id="mobile" name="mobile">
+
+    </div>
+
+    <div class="col-md-6">
+      <label>Email</label>
+      <input class="form-control" id="email" name="email">
+    </div>
+
+    <div class="col-md-6">
+      <label>Aadhar</label>
+      <input class="form-control" id="aadhar" name="aadhar">
+    </div>
+  </div>
+
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-primary" id="toProfessional">Next</button>
+  </div>
+
+</div>
+
+
+
+<!-- PROFESSIONAL -->
+<div class="tab-pane fade" id="professional">
+  <div class="row">
+    <!-- PROFESSIONAL tab-ல் -->
+<div class="col-md-6">
+  <label>Department</label>
+  <select class="form-control" id="department" name="department">
+    <option value="">Select Department</option>
+  </select>
+</div>
+<div class="col-md-6">
+  <label>Designation</label>
+   <select class="form-control" id="designation" name="designation">
+  <option value="">Select Designation</option>
+</select>
+</div>
+    <div class="col-md-6"><label>Experience</label><input class="form-control" id="experience" name="experience"></div>
+    <div class="col-md-6"><label>Previous Institute</label><input class="form-control" id="previous_institute" name="previous_institute"></div>
+  </div>
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-secondary" id="backToPersonal">Previous</button>
+    <button type="button" class="btn btn-primary" id="toEducation">Next</button>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="tab-pane fade" id="education">
+  <div class="row">
+    <div class="col-md-6"><label>Qualification</label><input class="form-control" id="qualification" name="qualification"></div>
+    <div class="col-md-6"><label>Course</label><input class="form-control" id="course" name="course"></div>
+    <div class="col-md-6"><label>College</label><input class="form-control" id="college" name="college"></div>
+    <div class="col-md-6"><label>Year</label><input class="form-control" id="year" name="year"></div>
+  </div>
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-secondary" id="backToProfessional">Previous</button>
+    <button type="button" class="btn btn-primary" id="toBank">Next</button>
+  </div>
+</div>
+
+<!-- BANK -->
+<div class="tab-pane fade" id="bank">
+  <div class="row">
+    <div class="col-md-6"><label>Account Name</label><input class="form-control" id="account_name" name="account_name"></div>
+    <div class="col-md-6"><label>Account No</label><input class="form-control" id="account_no" name="account_no"></div>
+    <div class="col-md-6"><label>IFSC</label><input class="form-control" id="ifsc" name="ifsc"></div>
+    <div class="col-md-6"><label>Bank Name</label><input class="form-control" id="bank_name" name="bank_name"></div>
+    <div class="col-md-6"><label>Salary</label><input class="form-control" id="salary" name="salary"></div>
+  </div>
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-secondary" id="backToEducation">Previous</button>
+    <button type="button" class="btn btn-primary" id="toJoining">Next</button>
+  </div>
+</div>
+
+<!-- JOINING -->
+<div class="tab-pane fade" id="joining">
+  <div class="row">
+    <div class="col-md-6"><label>Date of Joining</label><input type="date" class="form-control" id="date_of_joining" name="date_of_joining"></div>
+    <div class="col-md-6"><label>Employee ID</label><input class="form-control" id="employee_id" name="employee_id" readonly></div>
+    <div class="col-md-6"><label>Appointment No</label><input class="form-control" id="appointment_no" name="appointment_no"></div>
+    <div class="col-md-6"><label>Shift</label><input class="form-control" id="shift" name="shift"></div>
+  </div>
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-secondary" id="backToBank">Previous</button>
+    <button type="button" class="btn btn-primary" id="toProof">Next</button>
+  </div>
+</div>
+
+<!-- PROOF -->
+<div class="tab-pane fade" id="proof">
+  <div class="row">
+   
+<div class="col-md-12 mb-3">
+  <label class="form-label">Aadhar Card</label>
+  <input type="file" id="aadhar_file" class="form-control" name="aadhar_file">
+
+  <!-- ✅ FILE NAME SHOW -->
+  <small id="aadhar_file_name" class="text-success"></small>
+</div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label">PAN Card</label>
+        <input type="file" id="pan_file" class="form-control" name="pan_file"accept="application/pdf,image/jpeg,image/png">
+        <small id="pan_file_name"  class="text-success"></small>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label">Resume / CV</label>
+        <input type="file"  id="resume_file" class="form-control" name="resume_file" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      <small id="resume_file_name"  class="text-success"></small>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label">Degree Certificate / Higher Education Certificate</label>
+        <input type="file"  id="degree_certificate" class="form-control" name="degree_certificate" accept="application/pdf,image/jpeg,image/png">
+     <small id="degree_certificate_name"  class="text-success"></small>
+      </div>
+
+      <div class="col-md-12 mb-3">
+        <label class="form-label">Skill Certificate</label>
+        <input type="file"  id="skill_certificate" class="form-control" name="skill_certificate" accept="application/pdf,image/jpeg,image/png">
+      <small id="skill_certificate_name"  class="text-success"></small>
+      </div>
+
+    </div>
+  <div class="text-end mt-3">
+    <button type="button" class="btn btn-secondary" id="backToJoining">Previous</button>
+    
+    <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+  </div>
+</div>
+
+</div>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycby6SWOW2ox6sB4F572lkuPRGsCR-ukvGbWVAMhQQM7gmNH4ykZX4cBYJkKDZWItkuWJ/exec";
+
+// ===== TAB NAVIGATION =====
+function showTab(tabId) {
+  const tabTrigger = document.querySelector(`[data-bs-target="${tabId}"]`);
+  if (tabTrigger) new bootstrap.Tab(tabTrigger).show();
+}
+
+["toProfessional","toEducation","toBank","toJoining","toProof"].forEach(id => {
+  document.getElementById(id)?.addEventListener("click", () => 
+    showTab("#"+id.replace("to","").toLowerCase())
+  );
+});
+
+["backToPersonal","backToProfessional","backToEducation","backToBank","backToJoining"].forEach(id => {
+  document.getElementById(id)?.addEventListener("click", () => 
+    showTab("#"+id.replace("backTo","").toLowerCase())
+  );
+});
+
+// ===== GET URL PARAMS =====
+const params = new URLSearchParams(window.location.search);
+const empId = params.get("empid");
+const mode = params.get("mode"); // view / edit
+
+function formatDateForInput(value) {
+  if (!value) return "";
+  const d = new Date(value);
+  return isNaN(d) ? "" :
+    `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+// =====================================================
+// ===== SET TODAY DATE FOR DATE OF JOINING ===========
+// =====================================================
+
+if (!empId) {  // Only for new form
+
+  const today = new Date();
+  const formatted =
+    today.getFullYear() + "-" +
+    String(today.getMonth() + 1).padStart(2, "0") + "-" +
+    String(today.getDate()).padStart(2, "0");
+
+  document.getElementById("date_of_joining").value = formatted;
+
+}
+
+// =====================================================
+// ===== AUTO GENERATE EMPLOYEE ID (NEW FORM) =========
+// =====================================================
+
+if (!empId) {
+
+  Swal.fire({
+    title: 'Generating Employee ID...',
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+
+  fetch(scriptURL + "?action=get_staff")
+    .then(res => res.json())
+    .then(data => {
+
+      let nextNumber = 1;
+
+      if (data.length > 0) {
+        const lastRow = data[data.length - 1];
+        const lastId = lastRow[23];
+
+        if (lastId) {
+          const num = parseInt(String(lastId).replace(/\D/g, ""));
+          if (!isNaN(num)) nextNumber = num + 1;
+        }
+      }
+
+      const newId = "IGT E" + String(nextNumber).padStart(3, "0");
+      document.getElementById("employee_id").value = newId;
+
+      Swal.close(); // ✅ Close SweetAlert loading
+
+    })
+    .catch(err => {
+      Swal.close();
+      console.error(err);
+      Swal.fire('Error','Failed to generate Employee ID ❌','error');
+    });
+
+}
+// =====================================================
+// ===== LOAD DATA FOR VIEW / EDIT =====================
+// =====================================================
+if ((mode === "view" || mode === "edit") && empId) {
+
+  Swal.fire({
+    title:'Loading data...',
+    allowOutsideClick:false,
+    didOpen:()=>Swal.showLoading()
+  });
+
+  fetch(scriptURL + "?action=get_staff")
+    .then(res => res.json())
+    .then(data => {
+
+      Swal.close();
+
+      const r = data.find(row => 
+        String(row[23]).trim() === String(empId).trim()
+      );
+      window._savedDepartment = r[10]; // 
+      window._savedDesignation = r[11]; // 👈 ADD THIS
+
+      if(!r) return Swal.fire('Error','Record not found ❌','error');
+
+      const sheetRow = data.indexOf(r) + 2;
+
+      const headers = [
+        "full_name","father_name","mother_name","date_of_birth","age","gender","address",
+        "mobile","email","aadhar","department","designation","experience","previous_institute",
+        "qualification","course","college","year","account_name","account_no","ifsc",
+        "bank_name","date_of_joining","employee_id","appointment_no","shift","salary","aadhar_file"
+      ];
+
+      headers.forEach((id, index) => {
+
+        const el = document.getElementById(id);
+        if(!el) return;
+        if(el.type === "file") return;
+
+        const value = r[index] ?? "";
+
+        if(el.type === "date") {
+          el.value = formatDateForInput(value);
+        } else {
+          el.value = value;
+        }
+
+      });
+
+      if(mode === "view") {
+        document.querySelectorAll("input,textarea").forEach(e => e.readOnly = true);
+        document.querySelectorAll("select").forEach(e => e.disabled = true);
+        document.getElementById("submitBtn").style.display = "none";
+      }
+
+      // ✅ Edit mode-ல existing photo preview பண்ணு
+if (mode === "edit") {
+  document.getElementById("submitBtn").innerText = "Update";
+  document.getElementById("registrationForm").dataset.row = sheetRow;
+  window._existingUrls = {
+  photo:  r[27] || "",
+  aadhar: r[28] || "",
+  pan:    r[29] || "",
+  resume: r[30] || "",
+  degree: r[31] || "",
+  skill:  r[32] || ""
+};
+
+  // ✅ Photo preview
+  const existingPhotoUrl = r[27] || "";
+  if (existingPhotoUrl) {
+    const photoPreview = document.getElementById("photoPreview");
+    const photoPlaceholder = document.getElementById("photoPlaceholder");
+    let imgSrc = existingPhotoUrl;
+    const match = existingPhotoUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match) imgSrc = "https://lh3.googleusercontent.com/d/" + match[1];
+    photoPreview.src = imgSrc;
+    photoPreview.style.display = "block";
+    if (photoPlaceholder) photoPlaceholder.style.display = "none";
+  }
+
+  // ✅ Proof files existing links show பண்ணுங்க
+  // r[28]=aadhar, r[29]=pan, r[30]=resume, r[31]=degree, r[32]=skill
+  const proofFiles = [
+    { url: r[28] || "", labelId: "aadhar_file_name",       label: "Aadhar Card" },
+    { url: r[29] || "", labelId: "pan_file_name",          label: "PAN Card" },
+    { url: r[30] || "", labelId: "resume_file_name",       label: "Resume" },
+    { url: r[31] || "", labelId: "degree_certificate_name",label: "Degree Certificate" },
+    { url: r[32] || "", labelId: "skill_certificate_name", label: "Skill Certificate" }
+  ];
+proofFiles.forEach(f => {
+  const el = document.getElementById(f.labelId);
+  if (el && f.url) {
+    // ✅ Google Drive URL-ல் file name கிடைக்காது
+    // அதனால் label name-ஐயே காட்டுவோம்
+    el.innerHTML = `
+      <i class="fas fa-paperclip text-success me-1"></i>
+      <a href="${f.url}" target="_blank" style="color:green; font-weight:600;">
+        📎 ${f.label}
+      </a>
+      <span class="text-muted" style="font-size:11px;"> ✅ uploaded</span>
+    `;
+  }
+});
+}
+
+    })
+    .catch(err => {
+      Swal.close();
+      console.error(err);
+      Swal.fire('Error','Failed to load data ❌','error');
+    });
+}
+
+
+// =====================================================
+// ===== FORM SUBMIT ===================================
+// =====================================================
+document.getElementById("registrationForm")
+.addEventListener("submit", async function(e){
+  e.preventDefault();
+  const form = this;
+
+  Swal.fire({
+    title:'Uploading files...',
+    allowOutsideClick:false,
+    didOpen:()=>Swal.showLoading()
+  });
+
+  // ===== FILE UPLOAD HELPER =====
+  async function uploadFile(inputId, key, existingUrl, existingName) {
+    const input = document.getElementById(inputId);
+    if (!input || !input.files[0]) return { url: existingUrl || "", name: existingName || "" };
+
+    const file = input.files[0];
+    const base64 = await new Promise(res => {
+      const reader = new FileReader();
+      reader.onload = e => res(e.target.result);
+      reader.readAsDataURL(file);
+    });
+
+    const resp = await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "save_staff_file",
+        base64: base64,
+        mimeType: file.type,
+        fileName: file.name,
+        key: key
+      })
+    });
+
+    const result = await resp.json();
+    return { url: result.fileUrl || existingUrl || "", name: file.name };
+  }
+
+  // ✅ இந்த lines ADD பண்ணுங்கள் — இது missing ஆ இருந்தது!
+  const existingPhoto  = (mode === "edit") ? (window._existingUrls?.photo  || "") : "";
+  const existingAadhar = (mode === "edit") ? (window._existingUrls?.aadhar || "") : "";
+  const existingPan    = (mode === "edit") ? (window._existingUrls?.pan    || "") : "";
+  const existingResume = (mode === "edit") ? (window._existingUrls?.resume || "") : "";
+  const existingDegree = (mode === "edit") ? (window._existingUrls?.degree || "") : "";
+  const existingSkill  = (mode === "edit") ? (window._existingUrls?.skill  || "") : "";
+
+  // ===== UPLOAD ALL FILES =====
+  const photoResult  = await uploadFile("photo",             "photo",  existingPhoto,  "");
+  const aadharResult = await uploadFile("aadhar_file",       "aadhar", existingAadhar, "");
+  const panResult    = await uploadFile("pan_file",          "pan",    existingPan,    "");
+  const resumeResult = await uploadFile("resume_file",       "resume", existingResume, "");
+  const degreeResult = await uploadFile("degree_certificate","degree", existingDegree, "");
+  const skillResult  = await uploadFile("skill_certificate", "skill",  existingSkill,  "");
+
+  const photoUrl      = photoResult.url;
+  const aadharFileUrl = aadharResult.url;
+  const panFileUrl    = panResult.url;
+  const resumeFileUrl = resumeResult.url;
+  const degreeFileUrl = degreeResult.url;
+  const skillFileUrl  = skillResult.url;
+
+  // ... மீதி data collect + submit code same ...
+  // ===== COLLECT FORM DATA =====
+  const data = {
+    full_name:          document.getElementById("full_name").value,
+    father_name:        document.getElementById("father_name").value,
+    mother_name:        document.getElementById("mother_name").value,
+    date_of_birth:      document.getElementById("date_of_birth").value,
+    age:                document.getElementById("age").value,
+    gender:             document.getElementById("gender").value,
+    address:            document.getElementById("address").value,
+    mobile:             document.getElementById("mobile").value,
+    email:              document.getElementById("email").value,
+    aadhar:             document.getElementById("aadhar").value,
+    department:         document.getElementById("department").value,
+    designation:        document.getElementById("designation").value,
+    experience:         document.getElementById("experience").value,
+    previous_institute: document.getElementById("previous_institute").value,
+    qualification:      document.getElementById("qualification").value,
+    course:             document.getElementById("course").value,
+    college:            document.getElementById("college").value,
+    year:               document.getElementById("year").value,
+    account_name:       document.getElementById("account_name").value,
+    account_no:         document.getElementById("account_no").value,
+    ifsc:               document.getElementById("ifsc").value,
+    bank_name:          document.getElementById("bank_name").value,
+    date_of_joining:    document.getElementById("date_of_joining").value,
+    appointment_no:     document.getElementById("appointment_no").value,
+    shift:              document.getElementById("shift").value,
+    salary:             document.getElementById("salary").value,
+
+    // ✅ FILE URLs
+    photo_url:        photoUrl,
+    aadhar_file_url:  aadharFileUrl,
+    pan_file_url:     panFileUrl,
+    resume_file_url:  resumeFileUrl,
+    degree_file_url:  degreeFileUrl,
+    skill_file_url:   skillFileUrl
+    
+  };
+
+
+  // ✅ Existing URLs global-ஆ store பண்ணுங்க — submit-ல use ஆகும்
+
+
+  // ===== ACTION SET =====
+  if(mode === "edit" && empId) {
+    data.action = "update_staff";
+    data.row = Number(form.dataset.row);
+  } else {
+    data.action = "save_staff";
+  }
+
+  // ===== SUBMIT =====
+  try {
+    const res  = await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    const resp = await res.json();
+
+    Swal.close();
+
+    if(resp.status === "success") {
+      Swal.fire('Success', resp.message, 'success')
+        .then(()=> window.location.href="staffregisterview.html");
+    } else {
+      Swal.fire('Error', resp.message || 'Submit failed ❌', 'error');
+    }
+  } catch(err) {
+    Swal.close();
+    Swal.fire('Error','Submit error ❌','error');
+  }
+
+});
+function previewImage(input, previewId) {
+    const file = input.files[0]; // user select pannra file
+    if (file) {
+        const reader = new FileReader(); // image read panna
+        reader.onload = e => {
+            const img = document.getElementById(previewId);
+            img.src = e.target.result;      // image preview set panna
+            img.style.display = "block";    // img display pannum
+            // placeholder hide panna
+            const placeholder = document.getElementById(previewId + "Placeholder");
+            if(placeholder) placeholder.style.display = "none";
+        };
+        reader.readAsDataURL(file); // read the file
+    }
+}
+function getFileNameFromUrl(url) {
+  if (!url) return "";
+  // Google Drive URL-லிருந்து file ID எடு
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) return match[1].substring(0, 12) + "..."; // short ID காட்டு
+  // Normal URL-லிருந்து file name எடு
+  const parts = url.split("/");
+  return parts[parts.length - 1] || "file";
+}
+// ===== LOAD DEPARTMENTS =====
+fetch(scriptURL + "?action=get_departments")
+  .then(res => res.json())
+  .then(departments => {
+
+    const select = document.getElementById("department");
+
+    select.innerHTML = '<option value="">Select Department</option>';
+
+    departments.forEach(dept => {
+      const option = document.createElement("option");
+      option.value = dept.name;
+      option.textContent = dept.name + " - " + dept.id;
+      select.appendChild(option);
+    });
+
+    if (mode === "edit") {
+      const waitDept = () => {
+        if (window._savedDepartment) {
+          select.value = window._savedDepartment;
+          select.dispatchEvent(new Event("change"));
+        } else {
+          setTimeout(waitDept, 100);
+        }
+      };
+      waitDept();
+    }
+
+  });
+  // ===== LOAD DESIGNATIONS BASED ON DEPARTMENT =====
+document.getElementById("department").addEventListener("change", function () {
+
+  const deptId = this.value;
+  const desigSelect = document.getElementById("designation");
+
+  // ❗ department இல்லனா stop
+  if (!deptId) {
+    desigSelect.innerHTML = '<option value="">Select Designation</option>';
+    return;
+  }
+
+  // ✅ edit mode இல்லாதபோது மட்டும் loading
+  if (mode !== "edit") {
+    desigSelect.innerHTML = '<option value="">Loading...</option>';
+  }
+
+  fetch(scriptURL + "?action=get_designations&dept=" + deptId)
+    .then(res => res.json())
+    .then(list => {
+
+      desigSelect.innerHTML = '<option value="">Select Designation</option>';
+
+      list.forEach(d => {
+        const option = document.createElement("option");
+        option.value = d.name;
+        option.textContent = d.name + " - " + d.id;
+        desigSelect.appendChild(option);
+      });
+
+      // ✅ edit mode auto select
+      if (mode === "edit" && window._savedDesignation) {
+        desigSelect.value = window._savedDesignation;
+      }
+
+    })
+    .catch(() => {
+      desigSelect.innerHTML = '<option value="">No designation</option>';
+    });
+
+});
+// =====================================================
+// ===== AUTO GENERATE APPOINTMENT NUMBER ==============
+// =====================================================
+
+if (!empId) {
+
+  fetch(scriptURL + "?action=get_staff")
+    .then(res => res.json())
+    .then(data => {
+
+      let nextNumber = 1;
+
+      if (data.length > 0) {
+        const lastRow = data[data.length - 1];
+
+        // appointment_no column index
+        const lastNo = lastRow[24];   // 👈 change if column different
+
+        if (lastNo) {
+          const num = parseInt(lastNo);
+          if (!isNaN(num)) nextNumber = num + 1;
+        }
+      }
+
+      document.getElementById("appointment_no").value = nextNumber;
+
+    })
+    .catch(err => console.error(err));
+
+}
+</script>
+</body>
+</html>

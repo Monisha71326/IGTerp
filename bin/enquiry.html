@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enquiry Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-gradient-primary text-white">
+          <h5 class="mb-0">Enquiry Form</h5>
+        </div>
+
+        <div class="card-body">
+          <form id="enquiryForm">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input type="tel" name="phone" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea name="message" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn bg-gradient-primary w-100">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("enquiryForm");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    message: form.message.value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyU9KoASKielwmjYqOjbDU6EUufi-XMVUrK-tIE0l5HVxUlx1vtTsEI-NWd_mFsY6Hl/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    alert("Form Submitted Successfully ✅");
+    form.reset();
+  })
+  .catch(() => {
+    alert("Error ❌");
+  });
+});
+</script>
+
+</body>
+</html>

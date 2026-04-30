@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>Monisha</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
+  
+  <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
+  
+<style>
+    #submitBtn,
+    #submitBtn:disabled {
+      color: #fff !important;
+    }
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .back-floating-btn {
+  position: fixed;
+  top: 50px;        /* adjust based on header height */
+  left: 300px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #5e72e4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-floating-btn i {
+  font-size: 18px;
+}
+
+/* ⬇️ MODAL STYLES ⬇️ */
+.custom-modal {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 9999; align-items: center; justify-content: center;
+}
+.custom-modal-box {
+  background: #fff; width: 460px; border-radius: 10px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.modal-header { display: flex; justify-content: center; position:relative }
+.close-btn { font-size: 22px; cursor: pointer; position:absolute; right:0; }
+.installment-row { display: none; gap: 10px; margin-top: 20px; align-items: end; }
+.installment-row input { width: 110px; padding: 6px; }
+.pay-btn { background: #5a6cff; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+
+/* ⬇️ PREMIUM TREE STYLES ⬇️ */
+.billing-tree-container {
+  display: flex; flex-direction: column; gap: 16px; padding: 0 10px 10px 10px;
+}
+.tree-card {
+  background: #ffffff; border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+  border: 1px solid #e2e8f0; overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.tree-card:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.07); border-color: #cbd5e1;
+}
+.tree-card-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 24px; cursor: pointer; gap: 20px; border-bottom: 1px solid #f8fafc;
+}
+.tree-user-info { display: flex; align-items: center; gap: 16px; min-width: 220px; }
+.tree-avatar {
+  width: 46px; height: 46px; background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+  color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 18px; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.25);
+}
+.tree-user-details h4 { margin: 0 0 3px 0; color: #0f172a; font-size: 17px; font-weight: 800; letter-spacing: -0.5px; }
+.tree-user-details span { font-size: 12px; color: #94a3b8; font-weight: 600; letter-spacing: 0.3px; }
+.tree-fin-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+.tree-fin-item { display: flex; flex-direction: column; text-align: right; }
+.tree-fin-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 3px; }
+.tree-fin-value { font-size: 16px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px; }
+.tree-text-paid { color: #059669 !important; }
+.tree-text-bal { color: #e11d48 !important; }
+.tree-actions { display: flex; align-items: center; gap: 14px; }
+.tree-badge { padding: 5px 14px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; }
+.tree-badge-advance { background: #eff6ff; color: #2563eb; }
+.tree-badge-installment { background: #ecfdf5; color: #059669; }
+.tree-badge-full { background: #f4f5f7; color: #334155; }
+.tree-btn-pending {
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: white; border: none;
+  padding: 8px 20px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3); transition: all 0.2s ease;
+}
+.tree-btn-pending:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(244, 63, 94, 0.4); }
+
+.tree-btn-pending:disabled { 
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+  color: white; cursor: default; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); transform: none; 
+}
+
+.tree-arrow { font-size: 14px; color: #cbd5e1; transition: transform 0.3s ease; font-weight: bold; }
+.tree-card.active .tree-arrow { transform: rotate(180deg); color: #64748b; }
+.tree-card-body { max-height: 0; overflow: hidden; background: #f8fafc; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.tree-card.active .tree-card-body { max-height: 600px; }
+.tree-body-content { padding: 24px; }
+.tree-contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px;
+  font-size: 13px; background: #fff; padding: 18px; border-radius: 10px; border: 1px solid #e2e8f0;
+}
+.tree-contact-grid b { color: #94a3b8; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+.tree-contact-grid div { color: #0f172a; font-weight: 600; }
+.tree-inst-table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 10px; overflow: hidden; font-size: 13px; border: 1px solid #e2e8f0; }
+.tree-inst-table th { background: #f8fafc; color: #64748b; padding: 12px 16px; text-align: left; font-weight: 800; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #e2e8f0; }
+.tree-inst-table td { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #1e293b; font-weight: 600; }
+.tree-inst-table tbody tr:last-child td { border-bottom: none; }
+.tree-inst-table tbody tr:hover { background: #fafbff; }
+.tree-pill { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-block; }
+.tree-pill-paid { background: #ecfdf5; color: #059669; }
+.tree-pill-pending { background: #fef2f2; color: #dc2626; }
+.tree-pill-na { background: #f1f5f9; color: #94a3b8; }
+.add-btn {
+  background: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;   
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: all .3s ease;
+}
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30,58,138,.3);
+}
+</style>
+
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+    <script>
+    (function () {
+      // 🔒 Login check
+      if (!localStorage.getItem("loggedIn")) {
+        window.location.replace("../pages/sign-in.html");
+      }
+
+      // 🚫 Back button block
+      window.history.pushState(null, null, window.location.href);
+      window.onpopstate = function () {
+        window.history.pushState(null, null, window.location.href);
+      };
+
+      // 🔄 Cache / reload safety
+      window.addEventListener("pageshow", function () {
+        if (!localStorage.getItem("loggedIn")) {
+          window.location.replace("../pages/sign-in.html");
+        }
+      });
+    })();
+    </script>
+  <div class="min-height-300 bg-dark position-absolute w-100"></div>
+  
+  <!-- SIDEBAR -->
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html" target="_blank">
+        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">MONISHA</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+         <li class="nav-item">
+              <a class="nav-link " href="../pages/dashboard.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="ni ni-chart-bar-32 text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Dashboard</span>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/tables.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1"> Enquiry</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../pages/register.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>  
+                </div>
+                <span class="nav-link-text ms-1"> Register</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="../pages/billing.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Billing</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link " href="../pages/viewschudeling.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+
+                </div>
+                <span class="nav-link-text ms-1">Batch Scheluding</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../pages/studentview.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>  
+                </div>
+                <span class="nav-link-text ms-1"> Certificate </span>
+              </a>
+            </li>
+            
+                
+                
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/staffregisterview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+             <i class="fas fa-user-plus text-dark text-sm"></i>
+            </div>
+            <span class="nav-link-text ms-1">Staff Register</span>
+          </a>
+        </li>
+            
+            <li class="nav-item">
+              <a  class="nav-link " href="../pages/attendenceview.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-calendar-check   text-dark text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Staff Attendence</span>
+              </a>
+            </li>
+             
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/staffpayview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-money-bill-wave text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Staff pay </span>
+          </a>
+        </li>
+         
+
+        <li class="nav-item">
+          <a class="nav-link" href="../pages/studentattview.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="fas fa-id-card text-dark text-sm opacity-10"></i>  
+            </div>
+            <span class="nav-link-text ms-1">Student Attendence</span>
+          </a>
+        </li>
+            
+            
+            
+            <li class="nav-item">
+                <a class="nav-link " href="../pages/courseview.html">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-book-open text-dark text-sm opacity-10"></i>
+  
+                    </div>
+                    <span class="nav-link-text ms-1">Course</span>
+                </a>
+                </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="../pages/departmentview.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-building text-dark text-sm opacity-10"></i>
+
+  
+                </div>
+                <span class="nav-link-text ms-1"> Department </span>
+              </a>
+            </li>
+            
+          <li class="nav-item">
+              <a class="nav-link " href="../pages/designationview.html">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user-cog text-dark text-sm opacity-10"></i>
+
+
+                </div>
+                <span class="nav-link-text ms-1"> Designation</span>
+              </a>
+            </li>
+           
+             
+            
+          </ul>
+    </div>
+    <div class="sidenav-footer mx-3 ">
+      <div class="card card-plain shadow-none" id="sidenavCard">
+        <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+        <div class="card-body text-center p-3 w-100 pt-0"><div class="docs-info"><h6 class="mb-0">Need help?</h6><p class="text-xs font-weight-bold mb-0">Please check our docs</p></div></div>
+      </div>
+      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
+    </div>
+  </aside>
+
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Billing</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Billing</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          
+          </div>
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item d-flex align-items-center"><a href="javascript:;" class="nav-link text-white font-weight-bold px-0"><i class="fa fa-user me-sm-1"></i><span class="d-sm-inline d-none">Sign In</span></a></li>
+            <li class="nav-item px-3 d-flex align-items-center"><a href="javascript:;" class="nav-link text-white p-0"><i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i></a></li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center"><a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell cursor-pointer"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2"><a class="dropdown-item border-radius-md" href="javascript:;"><div class="d-flex py-1"><div class="my-auto"><img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 "></div><div class="d-flex flex-column justify-content-center"><h6 class="text-sm font-weight-normal mb-1"><span class="font-weight-bold">New message</span> from Laur</h6><p class="text-xs text-secondary mb-0"><i class="fa fa-clock me-1"></i>13 minutes ago</p></div></div></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0 d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center text-uppercase fw-bold" style="margin:0; gap:10px;">
+    <!-- Circle icon -->
+    <div class="d-flex align-items-center justify-content-center text-white rounded-circle shadow" 
+         style="width:35px; height:35px; font-size:16px; background-color:#1e3a8a;">
+      <i class="fas fa-file-invoice"></i>
+    </div>
+    <span style="color:#1e3a8a; font-size:17px;">View Billing</span>
+  </div>
+
+  <!-- Add Registration Button -->
+  <button onclick="goToNewRegistration()" class="add-btn">
+    <i class="fas fa-user-plus"></i> Add Registration
+  </button>
+</div>
+            
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                
+                <div class="d-flex justify-content-between align-items-center mb-3 mt-5 px-2">
+                  <div class="input-group" style="max-width: 280px;">
+                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Name or Reg ID..." oninput="applyFilters()">
+                  </div>
+                  <div class="d-flex gap-3">
+                    <button class="btn btn-outline-primary btn-sm" onclick="filterInvoices('all')">All</button>
+                    <button class="btn btn-outline-success btn-sm" onclick="filterInvoices('Fully')">Fully Paid</button>
+                    <button class="btn btn-outline-warning btn-sm" onclick="filterInvoices('Pending')">Pending</button> 
+                  </div>
+                </div>
+
+                <div id="invoiceCardsContainer" class="billing-tree-container"></div>
+
+                <!-- ✅ MODAL (Method Span Added) -->
+                <div id="installmentModal" class="custom-modal">
+                  <div class="custom-modal-box">
+                    <div class="modal-header">
+                      <h4>INSTALLMENTS</h4>
+                      <span class="close-btn" onclick="closeInstallmentModal()">×</span>
+                    </div>
+                    <p><b>Registration ID:</b> <span id="regIdText"></span></p>
+                    
+                    <div class="installment-row month1">
+                      <div><label>Date:</label><input id="m1date" class="border border rounded" type="date"></div>
+                      <div><label>Amount:</label><input id="m1amt" class="border border rounded" type="text"></div>
+                      <button onclick="goToRegister(1)" class="btn btn-primary">Make Payment</button>
+                    </div>
+                    <div class="installment-row month2">
+                      <div><label>Date:</label><input id="m2date" class="border border rounded" type="date"></div>
+                      <div><label>Amount:</label><input id="m2amt" class="border border rounded" type="text"></div>
+                      <button onclick="goToRegister(2)" class="btn btn-primary">Make Payment</button>
+                    </div>
+                    <div class="installment-row month3">
+                      <div><label>Date:</label><input id="m3date" class="border border rounded" type="date"></div>
+                      <div><label>Amount:</label><input id="m3amt" class="border border rounded" type="text"></div>
+                      <button onclick="goToRegister(3)" class="btn btn-primary">Make Payment</button>
+                    </div>
+                    <div class="installment-row month4">
+                      <div><label>Date:</label><input id="m4date" class="border border rounded" type="date"></div>
+                      <div><label>Amount:</label><input id="m4amt" class="border border rounded" type="text"></div>
+                      <button onclick="goToRegister(4)" class="btn btn-primary">Make Payment</button>
+                    </div>
+                  </div>
+                </div> 
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Argon Configurator -->
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2"><i class="fa fa-cog py-2"> </i></a>
+    <div class="card shadow-lg">
+      <div class="card-header pb-0 pt-3 "><div class="float-start"><h5 class="mt-3 mb-0">Argon Configurator</h5><p>See our dashboard options.</p></div><div class="float-end mt-4"><button class="btn btn-link text-dark p-0 fixed-plugin-close-button"><i class="fa fa-close"></i></button></div></div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0 overflow-auto">
+        <div><h6 class="mb-0">Sidebar Colors</h6></div>
+        <a href="javascript:void(0)" class="switch-trigger background-color"><div class="badge-colors my-2 text-start"><span class="badge filter bg-gradient-primary active" data-color="primary" onclick="sidebarColor(this)"></span><span class="badge filter bg-gradient-dark" data-color="dark" onclick="sidebarColor(this)"></span><span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span><span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span><span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span><span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span></div></a>
+        <div class="mt-3"><h6 class="mb-0">Sidenav Type</h6><p class="text-sm">Choose between 2 different sidenav types.</p></div>
+        <div class="d-flex"><button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white" onclick="sidebarType(this)">White</button><button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default" onclick="sidebarType(this)">Dark</button></div>
+        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+        <div class="d-flex my-3"><h6 class="mb-0">Navbar Fixed</h6><div class="form-check form-switch ps-0 ms-auto my-auto"><input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)"></div></div>
+        <hr class="horizontal dark my-sm-4">
+        <div class="mt-2 mb-5 d-flex"><h6 class="mb-0">Light / Dark</h6><div class="form-check form-switch ps-0 ms-auto my-auto"><input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)"></div></div>
+        <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/argon-dashboard">Free Download</a>
+        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard">View documentation</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JS Files -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+  
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = { damping: '0.5' }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+
+<script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbytCMlmj9q2ad6JadS7ew1hh3eUv9ihPT0ZcdPYxVyDPcGctAuxwt3FrXct_SUzz9Ye/exec";
+
+    let invoiceData = [];  
+    let selectedRowData = null;
+
+    const getInvHtml = (invObj) => {
+        if (!invObj || !invObj.no || invObj.no.toString().trim() === "") return `<span class="tree-pill tree-pill-na">-</span>`;
+        if (invObj.url) return `<a href="${invObj.url}" target="_blank" style="color:#2563eb; text-decoration:none; font-weight:700;">${invObj.no}</a>`;
+        return `<span style="color:#64748b; font-weight:700;">${invObj.no}</span>`;
+    };
+
+    const fmtDate = (d) => {
+        if (!d) return '-';
+        if (typeof d === 'string' && d.includes('-')) return d;
+        return '-';
+    };
+
+    // ✅ FIXED MAGIC HELPER: Full mode missing logic added
+    const getMethodByIndex = (rowObj, type, index) => {
+        if (!rowObj.paymentmethod || rowObj.paymentmethod === '-') return '-';
+        
+        // ✅ FIX 1: Full mode la direct ah string return pannum
+        if (type === 'full') return rowObj.paymentmethod; 
+        
+        const methods = rowObj.paymentmethod.split(',').map(m => m.trim());
+        let i = (type === 'advance') ? index : index - 1;
+        return methods[i] || '-';
+    };
+
+    function renderTable(data) {
+      const container = document.getElementById("invoiceCardsContainer"); 
+      container.innerHTML = "";
+
+      if (!Array.isArray(data)) {
+        container.innerHTML = `<div class="text-center text-danger p-5">Error loading data format.</div>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        container.innerHTML = `<div class="text-center text-muted p-5">No invoices found.</div>`;
+        return;
+      }
+
+      data.forEach(row => {
+        const bal = Number(row.balanceamt || 0);
+        const isFullyPaid = bal === 0;
+        const payType = (row.paymenttype || 'full').toLowerCase();
+        
+        let badgeClass = 'tree-badge-full';
+        if(payType === 'advance') badgeClass = 'tree-badge-advance';
+        if(payType === 'installment') badgeClass = 'tree-badge-installment';
+
+        let tableRows = '';
+        let invIdx = 0;
+
+        if (payType === 'advance') {
+          tableRows += `<tr>
+            <td>Advance Paid</td>
+            <td>${getMethodByIndex(row, 'advance', 0)}</td>
+            <td>${fmtDate(row.advancedate)}</td>
+            <td style="font-weight:800;">₹${row.advanceamount || 0}</td>
+            <td><span class="tree-pill tree-pill-paid">Paid</span></td>
+            <td>${getInvHtml(row.invoices[invIdx])}</td>
+          </tr>`;
+          invIdx++;
+
+          for(let i=1; i<=4; i++) {
+            if(Number(row[`month${i}amount`] || 0) > 0) {
+              let pillClass = (row.invoices[invIdx] && row.invoices[invIdx].no) ? 'tree-pill-paid' : 'tree-pill-pending';
+              let statusText = (row.invoices[invIdx] && row.invoices[invIdx].no) ? 'Paid' : 'Pending';
+              
+              tableRows += `<tr>
+                <td>Month ${i}</td>
+                <td>${getMethodByIndex(row, 'advance', i)}</td>
+                <td>${fmtDate(row[`month${i}date`])}</td>
+                <td style="font-weight:800;">₹${row[`month${i}amount`]}</td>
+                <td><span class="tree-pill ${pillClass}">${statusText}</span></td>
+                <td>${getInvHtml(row.invoices[invIdx])}</td>
+              </tr>`;
+              invIdx++;
+            }
+          }
+        } else if (payType === 'installment') {
+          for(let i=1; i<=4; i++) {
+            if(Number(row[`month${i}amount`] || 0) > 0) {
+               let pillClass = (row.invoices[invIdx] && row.invoices[invIdx].no) ? 'tree-pill-paid' : 'tree-pill-pending';
+               let statusText = (row.invoices[invIdx] && row.invoices[invIdx].no) ? 'Paid' : 'Pending';
+
+               tableRows += `<tr>
+                <td>Month ${i}</td>
+                <td>${getMethodByIndex(row, 'installment', i)}</td>
+                <td>${fmtDate(row[`month${i}date`])}</td>
+                <td style="font-weight:800;">₹${row[`month${i}amount`]}</td>
+                <td><span class="tree-pill ${pillClass}">${statusText}</span></td>
+                <td>${getInvHtml(row.invoices[invIdx])}</td>
+              </tr>`;
+              invIdx++;
+            }
+          }
+        } else { // Full Payment
+           tableRows += `<tr>
+            <td>Full Payment</td>
+            <td>${getMethodByIndex(row, 'full', 0)}</td>
+            <td>${fmtDate(row.registerdate)}</td>
+            <td style="font-weight:800;">₹${row.finalfee || 0}</td>
+            <td><span class="tree-pill tree-pill-paid">Paid</span></td>
+            <td>${getInvHtml(row.invoices[0])}</td>
+          </tr>`;
+        }
+
+        const cardHtml = `
+        <div class="tree-card" data-name="${(row.name || '').toLowerCase()}" data-regid="${(row.registerid || '').toLowerCase()}">
+          <div class="tree-card-head" onclick="toggleTree(this)">
+            <div class="tree-user-info">
+              <div class="tree-avatar">
+  ${row.photourl 
+    ? `<img src="${row.photourl}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
+    : (row.name || '?').charAt(0).toUpperCase()
+  }
+</div>
+              <div class="tree-user-details">
+                <h4>${row.name || 'Unknown'}</h4>
+                <span>${row.registerid || ''} • ${row.coursename || ''}</span>
+              </div>
+            </div>
+            
+            <div class="tree-fin-row">
+              <div class="tree-fin-item"><span class="tree-fin-label">Course Fee</span><span class="tree-fin-value">₹${row.coursefees || 0}</span></div>
+              <div class="tree-fin-item"><span class="tree-fin-label">Discount</span><span class="tree-fin-value">${row.discount || 0}%</span></div>
+              <div class="tree-fin-item"><span class="tree-fin-label">Final Fee</span><span class="tree-fin-value">₹${row.finalfee || 0}</span></div>
+              <div class="tree-fin-item"><span class="tree-fin-label">Paid</span><span class="tree-fin-value tree-text-paid">₹${row.feespaid || 0}</span></div>
+              <div class="tree-fin-item"><span class="tree-fin-label">Balance</span><span class="tree-fin-value tree-text-bal">₹${bal}</span></div>
+            </div>
+
+            <div class="tree-actions">
+              <span class="tree-badge ${badgeClass}">${payType}</span>
+              <button class="tree-btn-pending" onclick="event.stopPropagation(); openPaymentModal(${row.rowNumber})" ${isFullyPaid ? 'disabled' : ''}>
+                ${isFullyPaid ? 'Paid' : 'Pending'}
+              </button>
+              <span class="tree-arrow">▼</span>
+            </div>
+          </div>
+
+          <div class="tree-card-body">
+            <div class="tree-body-content">
+              <div class="tree-contact-grid">
+                <div><b>Reg Date</b>${fmtDate(row.registerdate)}</div>
+                <div><b>Enquiry No</b>${row.enquirynumber || '-'}</div>
+                <div><b>Phone</b>${row.contactno || '-'}</div>
+                <div><b>Email</b>${row.email || '-'}</div>
+                <div><b>Address</b>${row.address || '-'}</div>
+              </div>
+
+              <table class="tree-inst-table">
+                <thead>
+                  <tr>
+                    <th>Schedule</th><th>Payment Method</th><th>Due Date</th><th>Amount</th><th>Status</th><th>Invoice No</th>
+                  </tr>
+                </thead>
+                <tbody>${tableRows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>`;
+        
+        container.innerHTML += cardHtml;
+      });
+    }
+
+    function toggleTree(headerElement) {
+      document.querySelectorAll('.tree-card').forEach(card => {
+        if (card !== headerElement.parentElement) card.classList.remove('active');
+      });
+      headerElement.parentElement.classList.toggle('active');
+    }
+
+    function loadInvoices() {
+      fetch(`${WEB_APP_URL}?action=certificate&t=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+          invoiceData = data;         
+          renderTable(invoiceData); 
+        })
+        .catch(err => {
+            document.getElementById("invoiceCardsContainer").innerHTML = `<div class="text-center text-danger p-5">Failed to connect to server.</div>`;
+        });
+    }
+
+    function filterInvoices(type) {
+      let filteredData = [];
+      if (type === "all") filteredData = invoiceData;
+      else if (type === "Fully") filteredData = invoiceData.filter(row => Number(row.balanceamt) === 0);
+      else if (type === "Pending") filteredData = invoiceData.filter(row => Number(row.balanceamt) > 0);
+      renderTable(filteredData);
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      document.querySelectorAll('.tree-card').forEach(card => {
+        if (!query) { card.style.display = ''; return; }
+        const name = card.getAttribute('data-name') || '';
+        const regid = card.getAttribute('data-regid') || '';
+        card.style.display = (name.includes(query) || regid.includes(query)) ? '' : 'none';
+      });
+    }
+
+    // ✅ FIX 2 & 3: POPUP STRICT RULES APPLIED
+    function openPaymentModal(rowNumber) {
+      const row = invoiceData.find(r => r.rowNumber === rowNumber);
+      if (!row) { alert("Payment data not found"); return; }
+      if (Number(row.balanceamt || 0) === 0) { alert("All Installments Completed"); return; }
+
+      selectedRowData = row;
+      const payType = (row.paymenttype || 'full').toLowerCase();
+      
+      document.getElementById("regIdText").innerText = row.registerid || "N/A";
+
+      // STEP 1: CLEAR & HIDE EVERYTHING FIRST
+      for (let i = 1; i <= 4; i++) {
+        const el = document.querySelector(`.month${i}`); 
+        if (el) el.style.display = "none";
+        document.getElementById(`m${i}amt`).value = ""; 
+        document.getElementById(`m${i}date`).value = ""; 
+      }
+
+      // STEP 2: FIND EXACT PENDING MONTH
+      let pendingStart = -1; // Default: -1 means no pending found
+      const feesPaid = parseFloat(row.feespaid) || 0; 
+      const advance = Number(row.advanceamount || 0);
+      const m1 = Number(row.month1amount || 0); 
+      const m2 = Number(row.month2amount || 0); 
+      const m3 = Number(row.month3amount || 0);
+      const m4 = Number(row.month4amount || 0);
+
+      if (payType === 'advance') {
+        if (feesPaid <= advance) {
+            // Check if there are future months
+            if (m1 > 0) pendingStart = 1;
+        }
+        else if (feesPaid <= advance + m1) {
+            if (m2 > 0) pendingStart = 2;
+        }
+        else if (feesPaid <= advance + m1 + m2) {
+            if (m3 > 0) pendingStart = 3;
+        }
+        else if (feesPaid <= advance + m1 + m2 + m3) {
+            if (m4 > 0) pendingStart = 4;
+        }
+      } else if (payType === 'installment') {
+        if (feesPaid < m1) {
+            if (m1 > 0) pendingStart = 1;
+        }
+        else if (feesPaid < m1 + m2) {
+            if (m2 > 0) pendingStart = 2;
+        }
+        else if (feesPaid < m1 + m2 + m3) {
+            if (m3 > 0) pendingStart = 3;
+        }
+        else if (feesPaid < m1 + m2 + m3 + m4) {
+            if (m4 > 0) pendingStart = 4;
+        }
+      }
+
+      // STEP 3: SHOW ONLY IF PENDING FOUND
+      if (pendingStart !== -1) {
+        for (let i = pendingStart; i <= 4; i++) {
+          const el = document.querySelector(`.month${i}`);
+          if (el && row[`month${i}date`] && Number(row[`month${i}amount`]) > 0) {
+            el.style.display = "flex";
+            document.getElementById(`m${i}amt`).value = row[`month${i}amount`] || ""; 
+            // Date-a as-is pass pannu - convert pannatha!
+           let rawDate = row[`month${i}date`] || "";
+if (rawDate && rawDate.includes("-")) {
+    const dp = rawDate.split("-");
+    if (dp.length === 3 && dp[0].length === 2) {
+        rawDate = dp[2] + "-" + dp[1] + "-" + dp[0];
+    }
+}
+document.getElementById(`m${i}date`).value = rawDate;
+          }
+        }
+      }
+
+      ["m1amt", "m2amt", "m3amt", "m4amt"].forEach(id => { 
+        const input = document.getElementById(id); 
+        if (input && input.value !== "") input.setAttribute("data-original", input.value); 
+      });
+      
+      document.getElementById("installmentModal").style.display = "flex";
+    }
+
+    function closeInstallmentModal() { document.getElementById("installmentModal").style.display = "none"; }
+
+    function goToRegister(selectedMonth) {
+      if (!selectedRowData) { alert("No data selected"); return; }
+      const dataToSend = { ...selectedRowData, selectedMonth: selectedMonth };
+      const encodedData = encodeURIComponent(JSON.stringify(dataToSend));
+      window.location.href = `register.html?data=${encodedData}`;
+    }
+
+    loadInvoices();
+    // ✅ இதா மாத்துங்க
+function goToNewRegistration() {
+    window.location.href = "../pages/register.html";
+}
+    
+</script>
+</body>
+</html>

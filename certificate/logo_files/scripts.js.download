@@ -1,0 +1,109 @@
+
+
+
+
+// courses page value dynamic fuction
+function handleSubClick(title,subheading,aboutus,image,duration) {
+
+     
+    document.getElementById("title").innerHTML = title;
+    document.getElementById("subheading").innerHTML = subheading;
+    document.getElementById("aboutus").innerHTML = aboutus; 
+    document.getElementById("image").src=image;
+    document.getElementById("duration").innerHTML = duration;
+    document.getElementById("demoCourse").value = title;
+    document.getElementById("demoCourse2").value = title;
+    //window.location.href = './courses.php?title=' + encodeURIComponent(title); 
+
+  }
+
+//  forms input getting
+
+ var demoClassModal = document.getElementById("demoClassModal");
+ var demoClassBtn = document.getElementById("demoClassBtn");
+ var demoClassClose = document.getElementById("demoClassClose");
+ 
+
+ demoClassBtn.onclick = function() {
+     demoClassModal.style.display = "block";
+ }
+
+ demoClassClose.onclick = function() {
+     demoClassModal.style.display = "none";
+ }
+
+ window.onclick = function(event) {
+     if (event.target == demoClassModal) {
+         demoClassModal.style.display = "none";
+     }
+ }
+ window.onload = function() {
+     demoClassModal.style.display = "none";
+ }
+
+  // JavaScript to fetch data and display it in the input field
+  document.addEventListener("DOMContentLoaded", function() {
+         // Fetch data from the HTML element
+         var courseData = document.getElementById("courseData").textContent;
+
+         // Set the fetched data to the input field
+         document.getElementById("demoCourse").value = courseData;
+
+        // JavaScript to fetch content from <p> and display in <input>
+        var sourceContent = document.getElementById('sourceParagraph').textContent;
+
+        // Set the fetched content to the text input field
+        document.getElementById('demoCourse2').value = sourceContent;
+         
+
+     });
+
+
+     function handleDropdown(element) {
+        var dropdownMenu = element.nextElementSibling;
+        var redirectUrl = element.getAttribute("data-redirect");
+    
+        // Show the dropdown menu after a short delay
+        setTimeout(function() {
+            dropdownMenu.style.display = "block";
+        }, 300); // Adjust delay as necessary (300ms in this case)
+    
+        // Redirect to the specified URL immediately
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    }
+
+  
+    // Ensure dropdown menus close when clicking outside
+    document.addEventListener('click', function(event) {
+        var isClickInsideDropdown = event.target.matches('.nav-link, .nav-link *') || event.target.matches('.dropdown-menu, .dropdown-menu *');
+        if (!isClickInsideDropdown) {
+            var openDropdowns = document.querySelectorAll('.dropdown-menu');
+            openDropdowns.forEach(function(menu) {
+                menu.style.display = 'none';
+            });
+        }
+    });
+    
+
+
+
+
+
+
+
+
+
+
+     
+    
+
+
+
+            
+
+                        
+               
+                         
+                            

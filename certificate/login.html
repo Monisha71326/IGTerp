@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Login</title>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Times New Roman', serif;
+}
+
+.container{
+  display:flex;
+  height:100vh;
+}
+
+.login-section{
+  width:50%;
+  background:#f4f6fb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.image-section{
+  width:50%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;   /* vertical center */
+  align-items:center;       /* horizontal center */
+  background:#ffffff;
+}
+
+.right-logo{
+  width:250px;
+  margin-bottom:20px;
+}
+
+.certificate-bg{
+  width:100%;
+  height:100%; /* fixed height so center works */
+  background:url('certificate.jpeg') center/contain no-repeat;
+}
+.login-box{
+  width:420px;
+  background:white;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  border:3px solid #d4af37;
+  text-align:center;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+  color:#0b4f75;
+  margin-bottom:20px;
+}
+
+.login-title{
+  font-size:32px;
+  color:#1a1a4f;
+  margin-bottom:25px;
+}
+
+.input-group{
+  margin-bottom:20px;
+}
+
+.input-group input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+.options{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.login-btn{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(180deg,#f6d365,#d4a017);
+  border:none;
+  border-radius:10px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LEFT LOGIN -->
+  <div class="login-section">
+    <div class="login-box">
+      <div class="logo">INFOGRO TECHNOLOGY</div>
+      <div class="login-title">LOGIN</div>
+
+      <div class="input-group">
+        <input type="email" placeholder="Email Address">
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Password">
+      </div>
+
+      <div class="options">
+        <label><input type="checkbox"> Remember Me</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button class="login-btn">LOGIN</button>
+    </div>
+  </div>
+
+  <!-- RIGHT IMAGE -->
+  <!-- RIGHT IMAGE -->
+<div class="image-section">
+  <img src="igt.png" class="right-logo">
+  <div class="certificate-bg"></div>
+</div>
+</body>
+</html>
