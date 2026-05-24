@@ -49,10 +49,6 @@ IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system that provide
 - Mark student attendance (`studentattendence.html`)
 - View student attendance reports (`studentattview.html`)
 
-### 🏅 Certificates
-- Certificate display page with IGT branding
-- Login-protected certificate viewer
-
 ---
 
 ## 🛠️ Tech Stack
@@ -94,10 +90,6 @@ igterp/
 │   ├── studentattview.html       # View student attendance
 │   ├── profile.html              # Admin profile
 │   └── tables.html               # Data tables
-│
-├── certificate/                  # Certificate module
-│   ├── login.html                # Certificate login
-│   └── logo_files/               # Assets for certificate page
 │
 ├── assets/
 │   ├── css/                      # Styles
