@@ -1,12 +1,12 @@
 # 🏫 IGT ERP – Institute Management System
 
-A comprehensive **ERP (Enterprise Resource Planning)** web application built for **IGT (Institute of Global Technology)** to manage all day-to-day institute operations including students, staff, courses, attendance, and payroll — entirely through a browser with no backend required.
+A web-based Institute ERP system to manage student enrollment, staff registration, course management, department & designation tracking, attendance monitoring, payroll processing, and certificate generation.
 
 ---
 
 ## 📌 Project Overview
 
-IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system built on top of the **Argon Dashboard** UI framework. It provides a clean, role-based admin interface to manage an IT training institute's core operations.
+IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system that provides a clean admin interface to manage an IT training institute's core operations.
 
 > 🔐 Authentication is handled via `localStorage` — no server or database required.
 
@@ -62,7 +62,6 @@ IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system built on top
 | HTML5 | Page structure |
 | CSS3 + Bootstrap 5 | Styling and layout |
 | JavaScript (Vanilla) | Logic, form handling, localStorage |
-| Argon Dashboard v2.1.0 | UI component framework |
 | Chart.js | Dashboard charts and analytics |
 | Font Awesome | Icons |
 | Google Fonts | Typography |
@@ -101,7 +100,7 @@ igterp/
 │   └── logo_files/               # Assets for certificate page
 │
 ├── assets/
-│   ├── css/                      # Argon dashboard styles
+│   ├── css/                      # Styles
 │   ├── js/                       # Core JS files
 │   ├── img/                      # Images
 │   └── fonts/                    # Icon fonts
@@ -134,7 +133,6 @@ igterp/
    - Open `pages/sign-in.html` in your browser
    - Or use a local server:
      ```bash
-     # Using Python
      python -m http.server 8000
      ```
    - Then visit: `http://localhost:8000/pages/sign-in.html`
@@ -149,8 +147,6 @@ The system uses `localStorage` for session management.
 - After successful login, `loggedIn` key is set in `localStorage`
 - All protected pages redirect to login if this key is missing
 - The **back button** is disabled after logout for security
-
-> ⚠️ Since there is no real backend, credentials may be hardcoded or validated client-side. Check `sign-in.html` for details.
 
 ---
 
@@ -168,9 +164,7 @@ The system uses `localStorage` for session management.
 
 ## 📄 License
 
-This project uses the **Argon Dashboard** UI kit by [Creative Tim](https://www.creative-tim.com), licensed under the [MIT License](https://www.creative-tim.com/license).
-
-Your custom code and pages are yours to use freely.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
