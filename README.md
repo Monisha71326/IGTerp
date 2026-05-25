@@ -1,53 +1,14 @@
 # 🏫 IGT ERP – Institute Management System
 
-A web-based Institute ERP system to manage student enrollment, staff registration, course management, department & designation tracking, attendance monitoring, payroll processing, and certificate generation.
+A web-based Institute ERP system built for managing all core operations of an IT training institute — using **Bootstrap 5 + Custom CSS** for UI and **plain JavaScript with fetch() API** for logic and Google Sheets integration.
 
 ---
 
 ## 📌 Project Overview
 
-IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system that provides a clean admin interface to manage an IT training institute's core operations.
+IGT ERP is a **frontend-only** admin dashboard system. All data is stored and retrieved via **Google Sheets** using **Google Apps Script Web App**.
 
-> 🔐 Authentication is handled via `localStorage` — no server or database required.
-
----
-
-## ✨ Features
-
-### 📊 Dashboard
-- Overview of Enquiry stats, Student Registrations, and Billing
-- Enquiry Source Analysis charts (powered by Chart.js)
-- Quick navigation to all modules
-
-### 👨‍🎓 Student Management
-- Register new students (`studentform.html`)
-- View all student records in a table (`studentview.html`)
-
-### 📚 Course Management
-- Add new courses (`courseform.html`)
-- View and manage existing courses (`courseview.html`)
-
-### 🏢 Department Management
-- Create departments (`department.html`)
-- View department list (`departmentview.html`)
-
-### 🪪 Designation Management
-- Add designations/roles (`designationform.html`)
-- View designation records (`designationview.html`)
-
-### 👩‍💼 Staff Management
-- Register staff members (`staffregister.html`)
-- View all staff records (`staffregisterview.html`)
-
-### 💰 Staff Payroll
-- Add payroll entries (`staffpayform.html`)
-- View payslips and salary records (`staffpayview.html`)
-
-### 🗓️ Attendance Tracking
-- Mark staff attendance (`attendence.html`)
-- View attendance logs (`attendenceview.html`)
-- Mark student attendance (`studentattendence.html`)
-- View student attendance reports (`studentattview.html`)
+> 🔐 Login session is managed via `localStorage` — no server required.
 
 ---
 
@@ -55,12 +16,395 @@ IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system that provide
 
 | Technology | Purpose |
 |---|---|
-| HTML5 | Page structure |
-| CSS3 + Bootstrap 5 | Styling and layout |
-| JavaScript (Vanilla) | Logic, form handling, localStorage |
+| HTML5 | Page structure and markup |
+| Bootstrap 5 | Responsive grid, components, layout |
+| Custom CSS | Branding, colors, custom UI styles |
+| JavaScript (Plain JS) | DOM manipulation, form handling, logic |
+| fetch() API | Send/receive data to Google Sheets |
+| Google Sheets | Backend database |
+| Google Apps Script | Web App API (doGet / doPost) |
 | Chart.js | Dashboard charts and analytics |
-| Font Awesome | Icons |
+| Font Awesome | Icons throughout the UI |
 | Google Fonts | Typography |
+
+---
+
+## 🗄️ Backend — Google Sheets as Database
+
+```
+Browser (HTML + Plain JS)
+        ↓  fetch() POST / GET
+Google Apps Script Web App (doGet / doPost)
+        ↓
+Google Sheets (Each module = one Sheet tab)
+```
+
+### Google Sheets Tab Structure
+
+| Sheet Tab Name      | Module It Serves          |
+|---------------------|---------------------------|
+| `Enquiry`           | Enquiry Management        |
+| `Students`          | Student Registration      |
+| `Staff`             | Staff Registration        |
+| `StaffAttendance`   | Staff Attendance          |
+| `StudentAttendance` | Student Attendance        |
+| `Payroll`           | Staff Payroll             |
+| `Billing`           | Student Billing           |
+| `Batches`           | Batch Scheduling          |
+| `Certificates`      | Certificate Log           |
+
+### Setup Steps
+
+1. Create a new Google Sheet with the above tab names
+2. Go to **Extensions → Apps Script**
+3. Write `doGet()` and `doPost()` functions
+4. Deploy as **Web App** → Access: **Anyone**
+5. Copy the Web App URL into your project:
+
+```javascript
+// assets/js/config.js
+const SHEET_API_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+```
+
+### Sample fetch() API Call
+
+```javascript
+// Submit form data to Google Sheets
+const formData = {
+  sheet: "Students",
+  action: "insert",
+  payload: { name: "Ravi", course: "Python", mobile: "9876543210" }
+};
+
+fetch(SHEET_API_URL, {
+  method: "POST",
+  body: JSON.stringify(formData)
+})
+.then(res => res.json())
+.then(data => {
+  alert("Student registered successfully!");
+})
+.catch(err => {
+  console.error("Error:", err);
+});
+```
+
+---
+
+## ✨ Modules — Full Detail
+
+---
+
+### 🔐 1. Sign In
+
+**File:** `pages/sign-in.html`
+
+**Purpose:** Admin authentication with localStorage session.
+
+**Fields:**
+| Field | Type | Validation |
+|---|---|---|
+| Username | Text input | Required, min 3 chars |
+| Password | Password input | Required, min 6 chars |
+
+**Features:**
+- On login → `localStorage.setItem("loggedIn", true)`
+- All pages check `loggedIn` on load; missing → redirect to sign-in
+- Show/Hide password toggle (plain JS)
+- Back button disabled after logout (history.pushState blocked)
+
+---
+
+### 📊 2. Dashboard
+
+**File:** `pages/dashboard.html`
+
+**Purpose:** Central overview of all institute activity.
+
+**Summary Cards:**
+| Card | Data Source |
+|---|---|
+| Total Enquiries | `Enquiry` sheet row count |
+| Total Students | `Students` sheet row count |
+| Today's Attendance | `StaffAttendance` / `StudentAttendance` |
+| Pending Billing | `Billing` sheet unpaid count |
+
+**Charts (Chart.js):**
+| Chart | Type | Data |
+|---|---|---|
+| Enquiry Source Analysis | Pie / Doughnut | Walk-in, Online, Referral, Social Media |
+| Monthly Registrations | Bar Chart | Students registered per month |
+| Revenue Overview | Line Chart | Monthly billing totals |
+
+**Features:**
+- All counts fetched via fetch() on page load
+- Quick navigation buttons to all modules
+- Responsive Bootstrap card layout
+
+---
+
+### 📋 3. Enquiry Management
+
+**Files:** `pages/enquiry.html`, `pages/enquiryview.html`
+
+**Purpose:** Capture and track student enquiries.
+
+**Google Sheets Columns (`Enquiry` tab):**
+| Column | Field | Type | Validation |
+|---|---|---|---|
+| A | Enquiry ID | Auto-generated | EQ001, EQ002... |
+| B | Enquiry Date | Date | Required, auto-filled today |
+| C | Student Name | Text | Required, letters only |
+| D | Mobile Number | Number | Required, 10 digits |
+| E | Email ID | Email | Optional, valid format |
+| F | Course Interest | Dropdown | Required |
+| G | Enquiry Source | Dropdown | Walk-in / Online / Referral / Social Media |
+| H | Status | Dropdown | New / Follow-up / Converted / Closed |
+| I | Follow-up Date | Date | Optional |
+| J | Notes | Textarea | Optional |
+
+**Features:**
+- Enquiry ID auto-generated on form load (JS)
+- Status update from view page (inline edit via fetch POST)
+- Filter by status, date range, course (JS filter on fetched data)
+- Table rendered dynamically from fetch() GET response
+
+---
+
+### 👨‍🎓 4. Student Registration
+
+**Files:** `pages/studentform.html`, `pages/studentview.html`
+
+**Purpose:** Register new students and manage student records.
+
+**Google Sheets Columns (`Students` tab):**
+| Column | Field | Type | Validation |
+|---|---|---|---|
+| A | Student ID | Auto-generated | ST001, ST002... |
+| B | Registration Date | Date | Auto-filled |
+| C | Student Name | Text | Required |
+| D | Date of Birth | Date | Required |
+| E | Gender | Dropdown | Male / Female / Other |
+| F | Mobile Number | Number | Required, 10 digits |
+| G | Email ID | Email | Required |
+| H | Address | Textarea | Required |
+| I | Course Enrolled | Dropdown | From Courses sheet |
+| J | Batch | Dropdown | From Batches sheet |
+| K | Fee Amount | Number | Required |
+| L | Fee Paid | Number | Required |
+| M | Balance | Auto-calculated | Fee − Paid (JS) |
+| N | Status | Dropdown | Active / Completed / Dropped |
+
+**Features:**
+- Student ID auto-generated (JS)
+- Batch dropdown populated via fetch() from `Batches` sheet
+- Balance auto-calculated in JS (no server call needed)
+- View page: search by name, filter by course/status
+- Edit and delete via fetch() POST with action flag
+
+---
+
+### 🧑‍🏫 5. Staff Registration
+
+**Files:** `pages/staffregister.html`, `pages/staffregisterview.html`
+
+**Purpose:** Register and manage institute staff.
+
+**Google Sheets Columns (`Staff` tab):**
+| Column | Field | Type | Validation |
+|---|---|---|---|
+| A | Staff ID | Auto-generated | SF001, SF002... |
+| B | Join Date | Date | Required |
+| C | Staff Name | Text | Required |
+| D | Date of Birth | Date | Required |
+| E | Gender | Dropdown | Male / Female / Other |
+| F | Mobile Number | Number | Required, 10 digits |
+| G | Email ID | Email | Required |
+| H | Department | Dropdown | Required |
+| I | Designation | Dropdown | Required |
+| J | Qualification | Text | Required |
+| K | Salary | Number | Required |
+| L | Status | Dropdown | Active / Inactive |
+
+**Features:**
+- Staff ID auto-generated (JS)
+- Department and Designation dropdowns loaded via fetch()
+- Search and filter on view page (JS on fetched array)
+- Deactivate staff (status update) without deleting record
+
+---
+
+### 🗓️ 6. Staff Attendance
+
+**Files:** `pages/attendence.html`, `pages/attendenceview.html`
+
+**Purpose:** Mark and track daily staff attendance.
+
+**Google Sheets Columns (`StaffAttendance` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Attendance ID | Auto-generated |
+| B | Date | Date (today auto-filled) |
+| C | Staff ID | From Staff sheet |
+| D | Staff Name | Auto-filled from ID |
+| E | Status | Present / Absent / Half-Day / Leave |
+| F | In Time | Time input |
+| G | Out Time | Time input |
+| H | Remarks | Text |
+
+**Features:**
+- Active staff list auto-loaded on page open via fetch()
+- Bulk mark attendance with checkboxes (plain JS)
+- Single submit sends all records together via fetch() POST
+- View page: filter by date range, staff, status
+- Monthly summary per staff rendered from fetched data
+
+---
+
+### 🎓 7. Student Attendance
+
+**Files:** `pages/studentattendence.html`, `pages/studentattview.html`
+
+**Purpose:** Mark and track student attendance batch-wise.
+
+**Google Sheets Columns (`StudentAttendance` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Attendance ID | Auto-generated |
+| B | Date | Date (auto-filled) |
+| C | Batch | Dropdown |
+| D | Student ID | From Students sheet |
+| E | Student Name | Auto-filled |
+| F | Status | Present / Absent / Late |
+| G | Remarks | Text |
+
+**Features:**
+- Select batch → fetch() loads all students in that batch
+- Bulk mark Present/Absent for full batch (JS)
+- View page: filter by batch, date, student
+- Attendance percentage calculated in JS per student
+- Students below 75% highlighted (Bootstrap danger class)
+
+---
+
+### 💰 8. Payroll
+
+**Files:** `pages/staffpayform.html`, `pages/staffpayview.html`
+
+**Purpose:** Manage staff salary and generate payslips.
+
+**Google Sheets Columns (`Payroll` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Payroll ID | Auto-generated |
+| B | Month & Year | Month picker |
+| C | Staff ID | Dropdown |
+| D | Staff Name | Auto-filled |
+| E | Basic Salary | Auto-filled from Staff sheet |
+| F | Working Days | Number |
+| G | Present Days | Number |
+| H | Gross Salary | Auto-calculated (JS) |
+| I | PF Deduction | Number |
+| J | Other Deductions | Number |
+| K | Net Salary | Auto-calculated (JS) |
+| L | Payment Mode | Cash / Bank Transfer / UPI |
+| M | Payment Status | Paid / Pending |
+
+**Features:**
+- Staff dropdown auto-fills salary via fetch() from Staff sheet
+- Gross and Net salary calculated in JS on input change
+- View page: filter by month, staff, payment status
+- Print-friendly payslip (CSS `@media print` hides nav/sidebar)
+
+---
+
+### 💳 9. Billing
+
+**Files:** `pages/billing.html`, `pages/billingview.html`
+
+**Purpose:** Track student fee collection and payment history.
+
+**Google Sheets Columns (`Billing` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Bill ID | Auto-generated |
+| B | Bill Date | Date (auto-filled) |
+| C | Student ID | Dropdown |
+| D | Student Name | Auto-filled |
+| E | Course | Auto-filled |
+| F | Total Fee | Auto-filled from Students sheet |
+| G | Amount Paid | Number |
+| H | Payment Mode | Cash / Card / UPI / Bank Transfer |
+| I | Transaction ID | Text (for card/UPI) |
+| J | Balance Due | Auto-calculated (JS) |
+| K | Receipt Number | Auto-generated |
+| L | Notes | Text |
+
+**Features:**
+- Student dropdown auto-fills fee & balance via fetch()
+- Balance updates instantly in JS (Total Fee − Amount Paid)
+- Printable fee receipt via `window.print()`
+- View page: filter by student, date, payment mode
+- Pending dues highlighted in red (Bootstrap `text-danger`)
+
+---
+
+### 📅 10. Batch Scheduling
+
+**Files:** `pages/batch.html`, `pages/batchview.html`
+
+**Purpose:** Create and manage training batches.
+
+**Google Sheets Columns (`Batches` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Batch ID | Auto-generated |
+| B | Batch Name | Text |
+| C | Course | Dropdown |
+| D | Trainer (Staff) | Dropdown from Staff sheet |
+| E | Start Date | Date |
+| F | End Date | Date |
+| G | Timings | Text (e.g. 9AM – 11AM) |
+| H | Days | Text (e.g. Mon, Wed, Fri) |
+| I | Capacity | Number |
+| J | Enrolled Count | Counted from Students sheet |
+| K | Status | Upcoming / Ongoing / Completed |
+
+**Features:**
+- Trainer dropdown loaded via fetch() from Staff sheet
+- Enrolled count fetched and compared to capacity (JS)
+- Status auto-set in JS based on today's date vs start/end date
+- View: filter by course, trainer, status
+- Batch list used as dropdown source in Student Registration and Attendance pages
+
+---
+
+### 📜 11. Student Certificate
+
+**File:** `pages/certificate.html`
+
+**Purpose:** Generate and download course completion certificates.
+
+**Google Sheets Columns (`Certificates` tab):**
+| Column | Field | Type |
+|---|---|---|
+| A | Certificate ID | Auto-generated |
+| B | Issue Date | Date (auto-filled) |
+| C | Student ID | Dropdown |
+| D | Student Name | Auto-filled |
+| E | Course | Auto-filled |
+| F | Batch | Auto-filled |
+| G | Completion Date | Date |
+| H | Grade / Score | Text |
+| I | Issued By | Admin name |
+
+**Features:**
+- Student dropdown auto-fills name, course, batch via fetch()
+- Certificate preview rendered in the page (HTML/CSS template)
+- Print/Download as PDF via `window.print()`
+- CSS `@media print` hides all nav elements — certificate only
+- Issue logged to `Certificates` sheet via fetch() POST on print
+- Certificate ID shown on certificate for verification
 
 ---
 
@@ -69,36 +413,34 @@ IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system that provide
 ```
 igterp/
 │
-├── pages/                        # All main application pages
-│   ├── sign-in.html              # Login page
-│   ├── dashboard.html            # Main dashboard
-│   ├── studentform.html          # Add student
-│   ├── studentview.html          # View students
-│   ├── courseform.html           # Add course
-│   ├── courseview.html           # View courses
-│   ├── department.html           # Add department
-│   ├── departmentview.html       # View departments
-│   ├── designationform.html      # Add designation
-│   ├── designationview.html      # View designations
-│   ├── staffregister.html        # Register staff
-│   ├── staffregisterview.html    # View staff
-│   ├── staffpayform.html         # Add payroll
-│   ├── staffpayview.html         # View payroll
-│   ├── attendence.html           # Staff attendance
-│   ├── attendenceview.html       # View staff attendance
-│   ├── studentattendence.html    # Student attendance
-│   ├── studentattview.html       # View student attendance
-│   ├── profile.html              # Admin profile
-│   └── tables.html               # Data tables
+├── pages/
+│   ├── sign-in.html
+│   ├── dashboard.html
+│   ├── enquiry.html / enquiryview.html
+│   ├── studentform.html / studentview.html
+│   ├── staffregister.html / staffregisterview.html
+│   ├── attendence.html / attendenceview.html
+│   ├── studentattendence.html / studentattview.html
+│   ├── staffpayform.html / staffpayview.html
+│   ├── billing.html / billingview.html
+│   ├── batch.html / batchview.html
+│   ├── certificate.html
+│   └── profile.html
 │
 ├── assets/
-│   ├── css/                      # Styles
-│   ├── js/                       # Core JS files
-│   ├── img/                      # Images
-│   └── fonts/                    # Icon fonts
+│   ├── css/
+│   │   ├── bootstrap.min.css     # Bootstrap 5
+│   │   └── custom.css            # Custom styles & branding
+│   ├── js/
+│   │   ├── bootstrap.bundle.js   # Bootstrap JS
+│   │   ├── chart.min.js          # Chart.js
+│   │   ├── config.js             # Google Sheets API URL
+│   │   └── app.js                # Common JS (session check, fetch helpers)
+│   ├── img/                      # Logo, images
+│   └── fonts/                    # Font Awesome icons
 │
 └── docs/
-    └── documentation.html        # Project documentation
+    └── documentation.html
 ```
 
 ---
@@ -106,66 +448,46 @@ igterp/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Any modern web browser (Chrome, Firefox, Edge)
-- No server setup needed — runs as static HTML
+- Any modern browser (Chrome, Firefox, Edge)
+- Google account (for Google Sheets)
+- No server setup needed
 
-### Installation
+### Steps
 
-1. **Clone the repository**
+1. **Clone the repo**
    ```bash
    git clone https://github.com/your-username/igterp.git
-   ```
-
-2. **Navigate into the project**
-   ```bash
    cd igterp
    ```
 
-3. **Open the login page**
-   - Open `pages/sign-in.html` in your browser
-   - Or use a local server:
-     ```bash
-     python -m http.server 8000
-     ```
-   - Then visit: `http://localhost:8000/pages/sign-in.html`
+2. **Set up Google Sheets** with all tab names listed above
+
+3. **Deploy Apps Script Web App** and copy URL to `assets/js/config.js`
+
+4. **Open in browser**
+   ```bash
+   python -m http.server 8000
+   # Visit: http://localhost:8000/pages/sign-in.html
+   ```
 
 ---
 
-## 🔐 Login
-
-The system uses `localStorage` for session management.
-
-- Enter your credentials on the **Sign In** page (`pages/sign-in.html`)
-- After successful login, `loggedIn` key is set in `localStorage`
-- All protected pages redirect to login if this key is missing
-- The **back button** is disabled after logout for security
-
----
-
-## 📸 Screenshots
-
-> *(Add screenshots of your dashboard, forms, and tables here)*
-
----
-
-## 🧑‍💻 Author
+## 👨‍💻 Author
 
 **Monisha** — Developed as part of the IGT Institute ERP Project
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
 ## 📞 Contact
 
-For any queries related to this project, reach out via GitHub Issues.
+| Platform | Details |
+|---|---|
+| 📱 Phone | [9940983824](tel:9940983824) |
+| 📧 Email | [iammonisha.dev@gmail.com](mailto:iammonisha.dev@gmail.com) |
+| 🐙 GitHub | [github.com/Monisha71326](https://github.com/Monisha71326) |
+
+---
+
+## 📄 License
+
+[MIT License](https://opensource.org/licenses/MIT)
