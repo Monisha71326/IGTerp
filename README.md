@@ -74,13 +74,6 @@ IGT ERP is a **frontend-only** admin dashboard system. All data is stored and re
 
 ---
 
-> **How to add screenshots:**
-> 1. `docs/screenshots/` என்ற folder உங்கள் project-ல create பண்ணுங்க
-> 2. உங்கள் pages-இன் screenshots எடுங்க
-> 3. மேலே உள்ள file names-ல save பண்ணுங்க (e.g. `dashboard.png`)
-> 4. Commit & push to GitHub
-
----
 
 ## 🗄️ Backend — Google Sheets as Database
 
