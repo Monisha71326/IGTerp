@@ -970,8 +970,7 @@ if(params.has("edit")) editRow = params.get("edit");
 async function initForm(){
   showSpinner(true);
   try{
-    const res = await fetch(URL+"?action=init");
-    const initData = await res.json();
+    const res = await fetch(URL+"?action=init");    const initData = await res.json();
 
     if(!editRow){
       enquiry.value = initData.enquiry;   // only for new form
