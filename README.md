@@ -29,6 +29,59 @@ IGT ERP is a **frontend-only** admin dashboard system. All data is stored and re
 
 ---
 
+## 📸 Screenshots
+
+### 🔐 Sign In Page
+![Sign In](docs/screenshots/signin.png)
+
+### 📊 Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### 📋 Enquiry Management
+![Enquiry Form](docs/screenshots/enquiry-form.png)
+![Enquiry View](docs/screenshots/enquiry-view.png)
+
+### 👨‍🎓 Student Registration
+![Student Form](docs/screenshots/student-form.png)
+![Student View](docs/screenshots/student-view.png)
+
+### 🧑‍🏫 Staff Registration
+![Staff Form](docs/screenshots/staff-form.png)
+![Staff View](docs/screenshots/staff-view.png)
+
+### 🗓️ Staff Attendance
+![Staff Attendance](docs/screenshots/staff-attendance.png)
+![Staff Attendance View](docs/screenshots/staff-attendance-view.png)
+
+### 🎓 Student Attendance
+![Student Attendance](docs/screenshots/student-attendance.png)
+![Student Attendance View](docs/screenshots/student-attendance-view.png)
+
+### 💰 Payroll
+![Payroll Form](docs/screenshots/payroll-form.png)
+![Payroll View](docs/screenshots/payroll-view.png)
+
+### 💳 Billing
+![Billing Form](docs/screenshots/billing-form.png)
+![Billing View](docs/screenshots/billing-view.png)
+
+### 📅 Batch Scheduling
+![Batch Form](docs/screenshots/batch-form.png)
+![Batch View](docs/screenshots/batch-view.png)
+
+### 📜 Certificate Generation
+![Certificate](docs/screenshots/certificate.png)
+
+---
+
+> **How to add screenshots:**
+> 1. `docs/screenshots/` என்ற folder உங்கள் project-ல create பண்ணுங்க
+> 2. உங்கள் pages-இன் screenshots எடுங்க
+> 3. மேலே உள்ள file names-ல save பண்ணுங்க (e.g. `dashboard.png`)
+> 4. Commit & push to GitHub
+
+---
+
 ## 🗄️ Backend — Google Sheets as Database
 
 ```
@@ -195,13 +248,6 @@ fetch(SHEET_API_URL, {
 | M | Balance | Auto-calculated | Fee − Paid (JS) |
 | N | Status | Dropdown | Active / Completed / Dropped |
 
-**Features:**
-- Student ID auto-generated (JS)
-- Batch dropdown populated via fetch() from `Batches` sheet
-- Balance auto-calculated in JS (no server call needed)
-- View page: search by name, filter by course/status
-- Edit and delete via fetch() POST with action flag
-
 ---
 
 ### 🧑‍🏫 5. Staff Registration
@@ -226,19 +272,11 @@ fetch(SHEET_API_URL, {
 | K | Salary | Number | Required |
 | L | Status | Dropdown | Active / Inactive |
 
-**Features:**
-- Staff ID auto-generated (JS)
-- Department and Designation dropdowns loaded via fetch()
-- Search and filter on view page (JS on fetched array)
-- Deactivate staff (status update) without deleting record
-
 ---
 
 ### 🗓️ 6. Staff Attendance
 
 **Files:** `pages/attendence.html`, `pages/attendenceview.html`
-
-**Purpose:** Mark and track daily staff attendance.
 
 **Google Sheets Columns (`StaffAttendance` tab):**
 | Column | Field | Type |
@@ -252,20 +290,11 @@ fetch(SHEET_API_URL, {
 | G | Out Time | Time input |
 | H | Remarks | Text |
 
-**Features:**
-- Active staff list auto-loaded on page open via fetch()
-- Bulk mark attendance with checkboxes (plain JS)
-- Single submit sends all records together via fetch() POST
-- View page: filter by date range, staff, status
-- Monthly summary per staff rendered from fetched data
-
 ---
 
 ### 🎓 7. Student Attendance
 
 **Files:** `pages/studentattendence.html`, `pages/studentattview.html`
-
-**Purpose:** Mark and track student attendance batch-wise.
 
 **Google Sheets Columns (`StudentAttendance` tab):**
 | Column | Field | Type |
@@ -278,20 +307,11 @@ fetch(SHEET_API_URL, {
 | F | Status | Present / Absent / Late |
 | G | Remarks | Text |
 
-**Features:**
-- Select batch → fetch() loads all students in that batch
-- Bulk mark Present/Absent for full batch (JS)
-- View page: filter by batch, date, student
-- Attendance percentage calculated in JS per student
-- Students below 75% highlighted (Bootstrap danger class)
-
 ---
 
 ### 💰 8. Payroll
 
 **Files:** `pages/staffpayform.html`, `pages/staffpayview.html`
-
-**Purpose:** Manage staff salary and generate payslips.
 
 **Google Sheets Columns (`Payroll` tab):**
 | Column | Field | Type |
@@ -310,19 +330,11 @@ fetch(SHEET_API_URL, {
 | L | Payment Mode | Cash / Bank Transfer / UPI |
 | M | Payment Status | Paid / Pending |
 
-**Features:**
-- Staff dropdown auto-fills salary via fetch() from Staff sheet
-- Gross and Net salary calculated in JS on input change
-- View page: filter by month, staff, payment status
-- Print-friendly payslip (CSS `@media print` hides nav/sidebar)
-
 ---
 
 ### 💳 9. Billing
 
 **Files:** `pages/billing.html`, `pages/billingview.html`
-
-**Purpose:** Track student fee collection and payment history.
 
 **Google Sheets Columns (`Billing` tab):**
 | Column | Field | Type |
@@ -340,20 +352,11 @@ fetch(SHEET_API_URL, {
 | K | Receipt Number | Auto-generated |
 | L | Notes | Text |
 
-**Features:**
-- Student dropdown auto-fills fee & balance via fetch()
-- Balance updates instantly in JS (Total Fee − Amount Paid)
-- Printable fee receipt via `window.print()`
-- View page: filter by student, date, payment mode
-- Pending dues highlighted in red (Bootstrap `text-danger`)
-
 ---
 
 ### 📅 10. Batch Scheduling
 
 **Files:** `pages/batch.html`, `pages/batchview.html`
-
-**Purpose:** Create and manage training batches.
 
 **Google Sheets Columns (`Batches` tab):**
 | Column | Field | Type |
@@ -370,20 +373,11 @@ fetch(SHEET_API_URL, {
 | J | Enrolled Count | Counted from Students sheet |
 | K | Status | Upcoming / Ongoing / Completed |
 
-**Features:**
-- Trainer dropdown loaded via fetch() from Staff sheet
-- Enrolled count fetched and compared to capacity (JS)
-- Status auto-set in JS based on today's date vs start/end date
-- View: filter by course, trainer, status
-- Batch list used as dropdown source in Student Registration and Attendance pages
-
 ---
 
 ### 📜 11. Student Certificate
 
 **File:** `pages/certificate.html`
-
-**Purpose:** Generate and download course completion certificates.
 
 **Google Sheets Columns (`Certificates` tab):**
 | Column | Field | Type |
@@ -397,14 +391,6 @@ fetch(SHEET_API_URL, {
 | G | Completion Date | Date |
 | H | Grade / Score | Text |
 | I | Issued By | Admin name |
-
-**Features:**
-- Student dropdown auto-fills name, course, batch via fetch()
-- Certificate preview rendered in the page (HTML/CSS template)
-- Print/Download as PDF via `window.print()`
-- CSS `@media print` hides all nav elements — certificate only
-- Issue logged to `Certificates` sheet via fetch() POST on print
-- Certificate ID shown on certificate for verification
 
 ---
 
@@ -429,17 +415,37 @@ igterp/
 │
 ├── assets/
 │   ├── css/
-│   │   ├── bootstrap.min.css     # Bootstrap 5
-│   │   └── custom.css            # Custom styles & branding
+│   │   ├── bootstrap.min.css
+│   │   └── custom.css
 │   ├── js/
-│   │   ├── bootstrap.bundle.js   # Bootstrap JS
-│   │   ├── chart.min.js          # Chart.js
-│   │   ├── config.js             # Google Sheets API URL
-│   │   └── app.js                # Common JS (session check, fetch helpers)
-│   ├── img/                      # Logo, images
-│   └── fonts/                    # Font Awesome icons
+│   │   ├── bootstrap.bundle.js
+│   │   ├── chart.min.js
+│   │   ├── config.js
+│   │   └── app.js
+│   ├── img/
+│   └── fonts/
 │
 └── docs/
+    ├── screenshots/              ← 📸 Screenshots இங்கே save பண்ணுங்க
+    │   ├── signin.png
+    │   ├── dashboard.png
+    │   ├── enquiry-form.png
+    │   ├── enquiry-view.png
+    │   ├── student-form.png
+    │   ├── student-view.png
+    │   ├── staff-form.png
+    │   ├── staff-view.png
+    │   ├── staff-attendance.png
+    │   ├── staff-attendance-view.png
+    │   ├── student-attendance.png
+    │   ├── student-attendance-view.png
+    │   ├── payroll-form.png
+    │   ├── payroll-view.png
+    │   ├── billing-form.png
+    │   ├── billing-view.png
+    │   ├── batch-form.png
+    │   ├── batch-view.png
+    │   └── certificate.png
     └── documentation.html
 ```
 
