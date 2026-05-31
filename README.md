@@ -428,8 +428,9 @@ Manage student fee collection.
 
 # 📜 Module 13 – Student Certificate
 
-**File:** `pages/studentform.html`
-**File:** `pages/studentview.html`
+- `pages/studentform.html`
+- `pages/studentview.html`
+
 
 
 ## Fields
