@@ -1,52 +1,37 @@
 # 🏫 IGT ERP – Institute Management System
 
-A complete Institute Management System developed using **HTML5, Bootstrap 5, Custom CSS, JavaScript, Google Sheets, and Google Apps Script**.
+A comprehensive Institute ERP application developed using HTML5, Bootstrap 5, Custom CSS, JavaScript, Google Sheets, and Google Apps Script.
 
-The application helps training institutes manage student enquiries, admissions, staff records, attendance, payroll, billing, certificates, and administrative operations through a centralized dashboard.
+## 📌 Project Overview
 
----
+IGT ERP is designed to manage the day-to-day operations of a training institute through a centralized web-based dashboard.
 
-# 📌 Project Overview
+### Key Features
 
-IGT ERP is a frontend-based ERP application designed for educational institutions and training centers.
-
-Instead of using a traditional backend database, the project uses:
-
-- Google Sheets as Database
-- Google Apps Script as API Layer
-- Fetch API for Communication
-- Local Storage for Session Management
-
-This approach makes deployment simple, cost-effective, and easy to maintain.
-
----
-
-# 🎯 Main Objectives
-
-- Manage Student Enquiries
-- Register New Students
-- Manage Courses
-- Manage Departments
-- Manage Designations
-- Register Staff Members
-- Track Staff Attendance
-- Track Student Attendance
-- Manage Payroll
-- Generate Student Certificates
-- Manage Student Billing
-- Centralize Institute Operations
+- Student Enquiry Management
+- Student Registration
+- Course Management
+- Department Management
+- Designation Management
+- Staff Registration
+- Staff Attendance
+- Student Attendance
+- Payroll Management
+- Billing & Fee Tracking
+- Student Certificate Management
+- Admin Dashboard
 
 ---
 
-# 🛠️ Technology Stack
+## 🛠️ Technology Stack
 
 | Technology | Purpose |
 |------------|----------|
 | HTML5 | Structure |
-| Bootstrap 5 | Responsive UI |
+| Bootstrap 5 | Responsive Layout |
 | Custom CSS | Styling |
 | JavaScript | Business Logic |
-| Fetch API | API Calls |
+| Fetch API | Data Communication |
 | Google Sheets | Database |
 | Google Apps Script | Backend API |
 | Font Awesome | Icons |
@@ -58,25 +43,15 @@ This approach makes deployment simple, cost-effective, and easy to maintain.
 
 **File:** `pages/sign-in.html`
 
-## Purpose
+### Purpose
+Provides authentication and access control.
 
-Provides secure access to the ERP system.
-
-## Features
-
-- Username Login
-- Password Login
-- Password Show/Hide
-- Local Storage Session
+### Features
+- Login Authentication
+- LocalStorage Session
+- Password Toggle
 - Logout Handling
-- Protected Pages
-
-## Validation
-
-| Field | Validation |
-|---------|---------|
-| Username | Required |
-| Password | Required |
+- Protected Navigation
 
 ---
 
@@ -84,32 +59,28 @@ Provides secure access to the ERP system.
 
 **File:** `pages/dashboard.html`
 
-## Purpose
+### Purpose
+Provides an overview of institute operations.
 
-Displays summary information of institute activities.
-
-## Features
-
-- Student Summary
-- Staff Summary
-- Attendance Overview
-- Quick Navigation
-- Institute Statistics
+### Features
+- Statistics Cards
+- Student Overview
+- Staff Overview
+- Attendance Summary
+- Quick Navigation Links
 
 ---
 
 # 📋 Module 3 – Enquiry Management
 
-**Files:**
-
+**Files**
 - `pages/profile.html`
 - `pages/tables.html`
 
-## Purpose
+### Purpose
+Capture and manage prospective student enquiries.
 
-Capture and manage student enquiries.
-
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
@@ -123,69 +94,71 @@ Capture and manage student enquiries.
 | Course ID | Auto Filled |
 | Fees | Number |
 | How Did You Know Us | Dropdown |
-| 12th Marks | Number |
-| 12th Year | Number |
-| Diploma Marks | Number |
-| Diploma Year | Number |
-| UG Marks | Number |
-| UG Year | Number |
-| PG Details | Text |
+| Academic Details | Text |
 
-## Functions
-
+### Functions
 - Add Enquiry
-- View Enquiry
-- Edit Enquiry
-- Store in Google Sheets
+- View Enquiries
+- Edit Records
+- Save to Google Sheets
 
 ---
 
 # 👨‍🎓 Module 4 – Student Registration
 
-**Files:**
-
+**Files**
 - `pages/studentform.html`
 - `pages/studentview.html`
 
-## Purpose
+### Purpose
+Register students and manage admission records.
 
-Manage student admissions and records.
-
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
 | Student ID | Auto Generated |
-| Registration Date | Date |
 | Student Name | Text |
-| Date Of Birth | Date |
-| Gender | Dropdown |
 | Mobile Number | Number |
 | Email | Email |
-| Address | Text |
 | Course | Dropdown |
 | Batch | Dropdown |
-| Fee Amount | Number |
-| Fee Paid | Number |
-| Balance Amount | Calculated |
-| Status | Dropdown |
+| Fees | Number |
+| Paid Amount | Number |
+| Balance Amount | Auto Calculated |
+| Status | Active / Completed |
 
-## Functions
-
-- Student Registration
-- Student Listing
-- Student Management
+### Functions
+- New Student Registration
+- Student Record Management
+- Admission Tracking
+- Fee Tracking
 
 ---
 
-# 📚 Module 5 – Course Management
+# 💳 Module 5 – Billing Management
 
-**Files:**
+### Purpose
+Integrated with Student Registration.
 
+When students are registered, fee information is used for billing and payment tracking.
+
+### Functions
+
+- Fee Collection
+- Balance Calculation
+- Payment Tracking
+- Receipt Management
+
+---
+
+# 📚 Module 6 – Course Management
+
+**Files**
 - `pages/courseform.html`
 - `pages/courseview.html`
 
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
@@ -193,7 +166,7 @@ Manage student admissions and records.
 | Course ID | Text |
 | Fees | Number |
 
-## Functions
+### Functions
 
 - Add Course
 - Update Course
@@ -201,14 +174,13 @@ Manage student admissions and records.
 
 ---
 
-# 🏢 Module 6 – Department Management
+# 🏢 Module 7 – Department Management
 
-**Files:**
-
+**Files**
 - `pages/department.html`
 - `pages/departmentview.html`
 
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
@@ -217,14 +189,13 @@ Manage student admissions and records.
 
 ---
 
-# 🪪 Module 7 – Designation Management
+# 🪪 Module 8 – Designation Management
 
-**Files:**
-
+**Files**
 - `pages/designationform.html`
 - `pages/designationview.html`
 
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
@@ -234,192 +205,152 @@ Manage student admissions and records.
 
 ---
 
-# 🧑‍🏫 Module 8 – Staff Registration
+# 🧑‍🏫 Module 9 – Staff Registration
 
-**Files:**
-
+**Files**
 - `pages/staffregister.html`
 - `pages/staffregisterview.html`
 
-## Fields
+### Functions
 
-| Field Name | Type |
-|------------|------|
-| Employee ID | Auto Generated |
-| Full Name | Text |
-| Father Name | Text |
-| Mother Name | Text |
-| DOB | Date |
-| Age | Number |
-| Gender | Dropdown |
-| Mobile Number | Number |
-| Email | Email |
-| Address | Text |
-| Aadhaar Number | Number |
-| Department | Dropdown |
-| Designation | Dropdown |
-| Qualification | Text |
-| Experience | Text |
-| Previous Institute | Text |
-| Salary | Number |
-| Date Of Joining | Date |
-| Shift | Dropdown |
-| Account Name | Text |
-| Account Number | Number |
-| IFSC Code | Text |
-| Bank Name | Text |
-| Aadhaar File | Upload |
-| PAN File | Upload |
-| Resume | Upload |
-| Degree Certificate | Upload |
-| Skill Certificate | Upload |
+- Staff Registration
+- Staff Record Management
+- Qualification Tracking
+- Salary Information
+- Document Upload Management
+
+### Fields
+
+Employee ID, Full Name, Father Name, Mother Name, DOB, Gender, Mobile, Email, Department, Designation, Qualification, Experience, Salary, Bank Details and Supporting Documents.
 
 ---
 
-# 🗓️ Module 9 – Staff Attendance
+# 🗓️ Module 10 – Staff Attendance
 
-**Files:**
-
+**Files**
 - `pages/attendence.html`
 - `pages/attendenceview.html`
 
-## Fields
+### Features
 
-| Field Name | Type |
-|------------|------|
-| Attendance ID | Auto Generated |
-| Date | Date |
-| Employee ID | Dropdown |
-| Employee Name | Auto Filled |
-| Status | Present / Absent |
-| In Time | Time |
-| Out Time | Time |
-| Remarks | Text |
+- Daily Attendance
+- In Time / Out Time
+- Attendance Reports
+- Staff Status Tracking
 
 ---
 
-# 🎓 Module 10 – Student Attendance
+# 🎓 Module 11 – Student Attendance
 
-**Files:**
-
+**Files**
 - `pages/studentattendence.html`
 - `pages/studentattview.html`
 
-## Fields
+### Features
 
-| Field Name | Type |
-|------------|------|
-| Attendance ID | Auto Generated |
-| Date | Date |
-| Student ID | Dropdown |
-| Student Name | Auto Filled |
-| Batch | Dropdown |
-| Status | Present / Absent |
-| Remarks | Text |
+- Student Attendance
+- Batch Wise Attendance
+- Attendance Reports
+- Status Tracking
 
 ---
 
-# 💰 Module 11 – Staff Payroll
+# 💰 Module 12 – Payroll Management
 
-**Files:**
-
+**Files**
 - `pages/staffpayform.html`
 - `pages/staffpayview.html`
 
-## Fields
+### Features
 
-| Field Name | Type |
-|------------|------|
-| Payroll ID | Auto Generated |
-| Employee ID | Dropdown |
-| Employee Name | Auto Filled |
-| Salary | Number |
-| Working Days | Number |
-| Present Days | Number |
-| Gross Salary | Calculated |
-| Deductions | Number |
-| Net Salary | Calculated |
-| Payment Status | Dropdown |
+- Salary Calculation
+- Deduction Management
+- Payroll Reports
+- Payment Status
 
 ---
 
-# 💳 Module 12 – Billing Management
+# 📜 Module 13 – Student Certificate Management
 
-**Files:**
+**Files**
+- `pages/studentform.html`
+- `pages/studentview.html`
 
-- `pages/billing.html`
-- `pages/billingview.html`
+### Purpose
 
-## Purpose
+Generate and maintain student certificate records.
 
-Manage student fee collection.
-
-## Fields
-
-| Field Name | Type |
-|------------|------|
-| Bill ID | Auto Generated |
-| Bill Date | Date |
-| Student ID | Dropdown |
-| Student Name | Auto Filled |
-| Course | Auto Filled |
-| Total Fee | Number |
-| Amount Paid | Number |
-| Payment Mode | Cash / UPI / Card / Bank |
-| Transaction ID | Text |
-| Balance Due | Calculated |
-| Receipt Number | Auto Generated |
-| Notes | Text |
-
----
-
-# 📜 Module 13 – Student Certificate
-
-**File:** `pages/certificate.html`
-
-## Fields
+### Fields
 
 | Field Name | Type |
 |------------|------|
+| Student ID | Auto Generated |
+| Student Name | Text |
+| Course | Text |
 | Certificate ID | Auto Generated |
-| Student ID | Dropdown |
-| Student Name | Auto Filled |
-| Course | Auto Filled |
-| Batch | Auto Filled |
-| Completion Date | Date |
-| Grade / Score | Text |
 | Issue Date | Date |
-| Issued By | Admin |
+
+### Functions
+
+- Certificate Generation
+- Certificate Tracking
+- Student Completion Records
 
 ---
 
 # 👤 Module 14 – Admin Profile
 
-**File:** `pages/profile.html`
+**File**
+- `pages/profile.html`
 
-## Features
+### Features
 
-- View Profile
-- Update Profile
-- Manage Admin Information
+- Profile Information
+- Admin Settings
+- Account Management
 
 ---
 
-# 🗄️ Database Structure
+# 📸 Screenshots
 
-Google Sheets Tabs:
+```text
+docs/screenshots/
+│
+├── signin.png
+├── dashboard.png
+├── enquiry-form.png
+├── enquiry-view.png
+├── student-form.png
+├── student-view.png
+├── course-form.png
+├── course-view.png
+├── department-form.png
+├── department-view.png
+├── designation-form.png
+├── designation-view.png
+├── staff-form.png
+├── staff-view.png
+├── staff-attendance.png
+├── staff-attendance-view.png
+├── student-attendance.png
+├── student-attendance-view.png
+├── payroll-form.png
+├── payroll-view.png
+├── certificate.png
+└── profile.png
+```
 
-- Enquiry
-- Students
-- Courses
-- Departments
-- Designations
-- Staff
-- StaffAttendance
-- StudentAttendance
-- Payroll
-- Billing
-- Certificates
+---
+
+# 🗄️ Database Architecture
+
+Browser (HTML + JS)
+↓
+Fetch API
+↓
+Google Apps Script
+↓
+Google Sheets Database
 
 ---
 
@@ -427,38 +358,12 @@ Google Sheets Tabs:
 
 ```text
 igterp/
-│
 ├── pages/
-│   ├── sign-in.html
-│   ├── dashboard.html
-│   ├── profile.html
-│   ├── tables.html
-│   ├── studentform.html
-│   ├── studentview.html
-│   ├── courseform.html
-│   ├── courseview.html
-│   ├── department.html
-│   ├── departmentview.html
-│   ├── designationform.html
-│   ├── designationview.html
-│   ├── staffregister.html
-│   ├── staffregisterview.html
-│   ├── attendence.html
-│   ├── attendenceview.html
-│   ├── studentattendence.html
-│   ├── studentattview.html
-│   ├── staffpayform.html
-│   ├── staffpayview.html
-│   ├── billing.html
-│   ├── billingview.html
-│   └── certificate.html
-│
 ├── assets/
 │   ├── css/
 │   ├── js/
 │   ├── img/
 │   └── fonts/
-│
 └── docs/
     └── screenshots/
 ```
@@ -489,11 +394,9 @@ http://localhost:8000/pages/sign-in.html
 
 # 👨‍💻 Author
 
-**Monisha D**
+Monisha D
 
----
-
-# 📞 Contact
+## Contact
 
 GitHub: https://github.com/Monisha71326
 
