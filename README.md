@@ -1,185 +1,583 @@
 # 🏫 IGT ERP – Institute Management System
 
-A comprehensive **ERP (Enterprise Resource Planning)** web application built for **IGT (Institute of Global Technology)** to manage all day-to-day institute operations including students, staff, courses, attendance, and payroll — entirely through a browser with no backend required.
+A complete Institute Management System developed using **HTML5, Bootstrap 5, Custom CSS, JavaScript, Google Sheets, and Google Apps Script**.
+
+The application helps training institutes manage student enquiries, admissions, staff records, attendance, payroll, billing, certificates, and administrative operations through a centralized dashboard.
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-IGT ERP is a **frontend-only HTML/CSS/JavaScript** dashboard system built on top of the **Argon Dashboard** UI framework. It provides a clean, role-based admin interface to manage an IT training institute's core operations.
+IGT ERP is a frontend-based ERP application designed for educational institutions and training centers.
 
-> 🔐 Authentication is handled via `localStorage` — no server or database required.
+Instead of using a traditional backend database, the project uses:
 
----
+- Google Sheets as Database
+- Google Apps Script as API Layer
+- Fetch API for Communication
+- Local Storage for Session Management
 
-## ✨ Features
-
-### 📊 Dashboard
-- Overview of Enquiry stats, Student Registrations, and Billing
-- Enquiry Source Analysis charts (powered by Chart.js)
-- Quick navigation to all modules
-
-### 👨‍🎓 Student Management
-- Register new students (`studentform.html`)
-- View all student records in a table (`studentview.html`)
-
-### 📚 Course Management
-- Add new courses (`courseform.html`)
-- View and manage existing courses (`courseview.html`)
-
-### 🏢 Department Management
-- Create departments (`department.html`)
-- View department list (`departmentview.html`)
-
-### 🪪 Designation Management
-- Add designations/roles (`designationform.html`)
-- View designation records (`designationview.html`)
-
-### 👩‍💼 Staff Management
-- Register staff members (`staffregister.html`)
-- View all staff records (`staffregisterview.html`)
-
-### 💰 Staff Payroll
-- Add payroll entries (`staffpayform.html`)
-- View payslips and salary records (`staffpayview.html`)
-
-### 🗓️ Attendance Tracking
-- Mark staff attendance (`attendence.html`)
-- View attendance logs (`attendenceview.html`)
-- Mark student attendance (`studentattendence.html`)
-- View student attendance reports (`studentattview.html`)
-
-### 🏅 Certificates
-- Certificate display page with IGT branding
-- Login-protected certificate viewer
+This approach makes deployment simple, cost-effective, and easy to maintain.
 
 ---
 
-## 🛠️ Tech Stack
+# 🎯 Main Objectives
+
+- Manage Student Enquiries
+- Register New Students
+- Manage Courses
+- Manage Departments
+- Manage Designations
+- Register Staff Members
+- Track Staff Attendance
+- Track Student Attendance
+- Manage Payroll
+- Generate Student Certificates
+- Manage Student Billing
+- Centralize Institute Operations
+
+---
+
+# 🛠️ Technology Stack
 
 | Technology | Purpose |
-|---|---|
-| HTML5 | Page structure |
-| CSS3 + Bootstrap 5 | Styling and layout |
-| JavaScript (Vanilla) | Logic, form handling, localStorage |
-| Argon Dashboard v2.1.0 | UI component framework |
-| Chart.js | Dashboard charts and analytics |
+|------------|----------|
+| HTML5 | Structure |
+| Bootstrap 5 | Responsive UI |
+| Custom CSS | Styling |
+| JavaScript | Business Logic |
+| Fetch API | API Calls |
+| Google Sheets | Database |
+| Google Apps Script | Backend API |
 | Font Awesome | Icons |
 | Google Fonts | Typography |
 
 ---
 
-## 📁 Project Structure
 
-```
+
+# 📸 Screenshots
+
+## 🔐 Sign In
+![Sign In](docs/screenshots/01-sign-in.png)
+
+## 📊 Dashboard
+![Dashboard](docs/screenshots/02-dashboard.png)
+
+## 📋 Enquiry Management
+![Enquiry Form](docs/screenshots/03-enquiry-form.png)
+![Enquiry List](docs/screenshots/04-enquiry-view.png)
+
+## 👨‍🎓 Student Registration
+![Student Registration](docs/screenshots/05-student-registration.png)
+
+
+## 📚 Course Management
+![Course Form](docs/screenshots/07-course-form.png)
+![Course List](docs/screenshots/08-course-list.png)
+
+## 🏢 Department Management
+![Department Form](docs/screenshots/09-department-form.png)
+![Department List](docs/screenshots/10-department-list.png)
+
+## 🪪 Designation Management
+![Designation Form](docs/screenshots/11-designation-form.png)
+![Designation List](docs/screenshots/12-designation-list.png)
+
+## 🧑‍🏫 Staff Registration
+![Staff Registration](docs/screenshots/13-staff-form.png)
+![Staff List](docs/screenshots/14-staff-view.png)
+
+## 🗓️ Staff Attendance
+![Staff Attendance Form](docs/screenshots/15-staff-attendance-form.png)
+![Staff Attendance List](docs/screenshots/16-staff-attendance-list.png)
+
+## 🏢 Batch Management
+![Department Form](docs/screenshots/09-batch-form.png)
+![Department List](docs/screenshots/10-batch-view.png)
+
+
+## 🎓 Student Attendance
+![Student Attendance Form](docs/screenshots/17-student-attendance-form.png)
+![Student Attendance List](docs/screenshots/18-student-attendance-list.png)
+
+## 💰 Staff Payroll
+![Payroll Form](docs/screenshots/19-payroll-form.png)
+![Payroll List](docs/screenshots/20-payroll-list.png)
+
+## 💳 Billing Management
+![Billing Form](docs/screenshots/21-billing-form.png)
+
+
+## 📜 Student Certificate
+![Certificate Form](docs/screenshots/23-certificate-form.png)
+![Certificate List](docs/screenshots/23-certificate-view.png)
+
+
+# 🔐 Module 1 – Sign In
+
+**File:** `pages/sign-in.html`
+
+## Purpose
+
+Provides secure access to the ERP system.
+
+## Features
+
+- Username Login
+- Password Login
+- Password Show/Hide
+- Local Storage Session
+- Logout Handling
+- Protected Pages
+
+## Validation
+
+| Field | Validation |
+|---------|---------|
+| Username | Required |
+| Password | Required |
+
+---
+
+# 📊 Module 2 – Dashboard
+
+**File:** `pages/dashboard.html`
+
+## Purpose
+
+Displays summary information of institute activities.
+
+## Features
+
+- Student Summary
+- Staff Summary
+- Attendance Overview
+- Quick Navigation
+- Institute Statistics
+
+---
+
+# 📋 Module 3 – Enquiry Management
+
+**Files:**
+
+- `pages/profile.html`
+- `pages/tables.html`
+
+## Purpose
+
+Capture and manage student enquiries.
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Enquiry Date | Date |
+| Student Name | Text |
+| DOB | Date |
+| Contact Number | Number |
+| Email | Email |
+| Address | Text |
+| Course | Dropdown |
+| Course ID | Auto Filled |
+| Fees | Number |
+| How Did You Know Us | Dropdown |
+| 12th Marks | Number |
+| 12th Year | Number |
+| Diploma Marks | Number |
+| Diploma Year | Number |
+| UG Marks | Number |
+| UG Year | Number |
+| PG Details | Text |
+
+## Functions
+
+- Add Enquiry
+- View Enquiry
+- Edit Enquiry
+- Store in Google Sheets
+
+---
+
+# 👨‍🎓 Module 4 – Student Registration
+
+**Files:**
+
+- `pages/Register.html`
+
+
+## Purpose
+
+Manage student admissions and records.
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Student ID | Auto Generated |
+| Registration Date | Date |
+| Student Name | Text |
+| Date Of Birth | Date |
+| Gender | Dropdown |
+| Mobile Number | Number |
+| Email | Email |
+| Address | Text |
+| Course | Dropdown |
+| Batch | Dropdown |
+| Fee Amount | Number |
+| Fee Paid | Number |
+| Balance Amount | Calculated |
+| Status | Dropdown |
+
+## Functions
+
+- Student Registration
+- Student Listing
+- Student Management
+
+---
+
+# 📚 Module 5 – Course Management
+
+**Files:**
+
+- `pages/courseform.html`
+- `pages/courseview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Course Name | Text |
+| Course ID | Text |
+| Fees | Number |
+
+## Functions
+
+- Add Course
+- Update Course
+- View Courses
+
+---
+
+# 🏢 Module 6 – Department Management
+
+**Files:**
+
+- `pages/department.html`
+- `pages/departmentview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Department Name | Text |
+| Department ID | Text |
+
+---
+
+# 🪪 Module 7 – Designation Management
+
+**Files:**
+
+- `pages/designationform.html`
+- `pages/designationview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Department | Dropdown |
+| Designation | Text |
+| Department ID | Text |
+
+---
+
+# 🧑‍🏫 Module 8 – Staff Registration
+
+**Files:**
+
+- `pages/staffregister.html`
+- `pages/staffregisterview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Employee ID | Auto Generated |
+| Full Name | Text |
+| Father Name | Text |
+| Mother Name | Text |
+| DOB | Date |
+| Age | Number |
+| Gender | Dropdown |
+| Mobile Number | Number |
+| Email | Email |
+| Address | Text |
+| Aadhaar Number | Number |
+| Department | Dropdown |
+| Designation | Dropdown |
+| Qualification | Text |
+| Experience | Text |
+| Previous Institute | Text |
+| Salary | Number |
+| Date Of Joining | Date |
+| Shift | Dropdown |
+| Account Name | Text |
+| Account Number | Number |
+| IFSC Code | Text |
+| Bank Name | Text |
+| Aadhaar File | Upload |
+| PAN File | Upload |
+| Resume | Upload |
+| Degree Certificate | Upload |
+| Skill Certificate | Upload |
+
+---
+
+# 🗓️ Module 9 – Staff Attendance
+
+**Files:**
+
+- `pages/attendence.html`
+- `pages/attendenceview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Attendance ID | Auto Generated |
+| Date | Date |
+| Employee ID | Dropdown |
+| Employee Name | Auto Filled |
+| Status | Present / Absent |
+| In Time | Time |
+| Out Time | Time |
+| Remarks | Text |
+
+---
+
+# 🎓 Module 10 – Student Attendance
+
+**Files:**
+
+- `pages/studentattendence.html`
+- `pages/studentattview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Attendance ID | Auto Generated |
+| Date | Date |
+| Student ID | Dropdown |
+| Student Name | Auto Filled |
+| Batch | Dropdown |
+| Status | Present / Absent |
+| Remarks | Text |
+
+---
+
+# 💰 Module 11 – Staff Payroll
+
+**Files:**
+
+- `pages/staffpayform.html`
+- `pages/staffpayview.html`
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Payroll ID | Auto Generated |
+| Employee ID | Dropdown |
+| Employee Name | Auto Filled |
+| Salary | Number |
+| Working Days | Number |
+| Present Days | Number |
+| Gross Salary | Calculated |
+| Deductions | Number |
+| Net Salary | Calculated |
+| Payment Status | Dropdown |
+
+---
+
+# 💳 Module 12 – Billing Management
+
+**Files:**
+
+- `pages/billing.html`
+
+
+## Purpose
+
+Manage student fee collection.
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Bill ID | Auto Generated |
+| Bill Date | Date |
+| Student ID | Dropdown |
+| Student Name | Auto Filled |
+| Course | Auto Filled |
+| Total Fee | Number |
+| Amount Paid | Number |
+| Payment Mode | Cash / UPI / Card / Bank |
+| Transaction ID | Text |
+| Balance Due | Calculated |
+| Receipt Number | Auto Generated |
+| Notes | Text |
+
+---
+
+# 📜 Module 13 – Student Certificate
+
+- `pages/studentform.html`
+- `pages/studentview.html`
+
+
+
+## Fields
+
+| Field Name | Type |
+|------------|------|
+| Certificate ID | Auto Generated |
+| Student ID | Dropdown |
+| Student Name | Auto Filled |
+| Course | Auto Filled |
+| Batch | Auto Filled |
+| Completion Date | Date |
+| Grade / Score | Text |
+| Issue Date | Date |
+| Issued By | Admin |
+
+---
+
+
+
+# 🗄️ Database Structure
+
+Google Sheets Tabs:
+
+- Enquiry
+- Students
+- Courses
+- Departments
+- Designations
+- Staff
+- StaffAttendance
+- StudentAttendance
+- Payroll
+- Billing
+- Certificates
+
+---
+
+# 📁 Project Structure
+
+```text
 igterp/
 │
-├── pages/                        # All main application pages
-│   ├── sign-in.html              # Login page
-│   ├── dashboard.html            # Main dashboard
-│   ├── studentform.html          # Add student
-│   ├── studentview.html          # View students
-│   ├── courseform.html           # Add course
-│   ├── courseview.html           # View courses
-│   ├── department.html           # Add department
-│   ├── departmentview.html       # View departments
-│   ├── designationform.html      # Add designation
-│   ├── designationview.html      # View designations
-│   ├── staffregister.html        # Register staff
-│   ├── staffregisterview.html    # View staff
-│   ├── staffpayform.html         # Add payroll
-│   ├── staffpayview.html         # View payroll
-│   ├── attendence.html           # Staff attendance
-│   ├── attendenceview.html       # View staff attendance
-│   ├── studentattendence.html    # Student attendance
-│   ├── studentattview.html       # View student attendance
-│   ├── profile.html              # Admin profile
-│   └── tables.html               # Data tables
-│
-├── certificate/                  # Certificate module
-│   ├── login.html                # Certificate login
-│   └── logo_files/               # Assets for certificate page
+├── pages/
+│   ├── sign-in.html
+│   ├── dashboard.html
+│   ├── profile.html
+│   ├── tables.html
+│   ├── studentform.html
+│   ├── studentview.html
+│   ├── courseform.html
+│   ├── courseview.html
+│   ├── department.html
+│   ├── departmentview.html
+│   ├── designationform.html
+│   ├── designationview.html
+│   ├── staffregister.html
+│   ├── staffregisterview.html
+│   ├── attendence.html
+│   ├── attendenceview.html
+│   ├── studentattendence.html
+│   ├── studentattview.html
+│   ├── staffpayform.html
+│   ├── staffpayview.html
+│   ├── billing.html
+│   ├── Register.html
+│   
 │
 ├── assets/
-│   ├── css/                      # Argon dashboard styles
-│   ├── js/                       # Core JS files
-│   ├── img/                      # Images
-│   └── fonts/                    # Icon fonts
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── fonts/
 │
 └── docs/
-    └── documentation.html        # Project documentation
+    └── screenshots/
+        ├── 01-sign-in.png
+        ├── 02-dashboard.png
+        ├── 03-enquiry-form.png
+        ├── 04-enquiry-list.png
+        ├── 05-student-registration.png
+        ├── 06-course-form.png
+        ├── 07-course-list.png
+        ├── 08-department-form.png
+        ├── 09-department-list.png
+        ├── 10-designation-form.png
+        ├── 11-designation-list.png
+        ├── 12-staff-form.png
+        ├── 13-staff-view.png
+        ├── 14-staff-attendance-form.png
+        ├── 15-staff-attendance-list.png
+        ├── 16-student-attendance-form.png
+        ├── 17-student-attendance-list.png
+        ├── 18-payroll-form.png
+        ├── 19-payroll-list.png
+        ├── 20-billing-form.png
+        └── 21-certificate-form.png
+        └── 22-certificate-view.png
+
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/Monisha71326/igterp.git
+```
+
+## Run Project
+
+```bash
+python -m http.server 8000
+```
+
+Open:
+
+```text
+http://localhost:8000/pages/sign-in.html
 ```
 
 ---
 
-## 🚀 Getting Started
+# 👨‍💻 Author
 
-### Prerequisites
-- Any modern web browser (Chrome, Firefox, Edge)
-- No server setup needed — runs as static HTML
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/igterp.git
-   ```
-
-2. **Navigate into the project**
-   ```bash
-   cd igterp
-   ```
-
-3. **Open the login page**
-   - Open `pages/sign-in.html` in your browser
-   - Or use a local server:
-     ```bash
-     # Using Python
-     python -m http.server 8000
-     ```
-   - Then visit: `http://localhost:8000/pages/sign-in.html`
+**Monisha D**
 
 ---
 
-## 🔐 Login
+# 📞 Contact
 
-The system uses `localStorage` for session management.
+GitHub: https://github.com/Monisha71326
 
-- Enter your credentials on the **Sign In** page (`pages/sign-in.html`)
-- After successful login, `loggedIn` key is set in `localStorage`
-- All protected pages redirect to login if this key is missing
-- The **back button** is disabled after logout for security
+LinkedIn: https://www.linkedin.com/in/monisha-d-8909a93b3
 
-> ⚠️ Since there is no real backend, credentials may be hardcoded or validated client-side. Check `sign-in.html` for details.
+Email: iammonisha.dev@gmail.com
 
 ---
 
-## 📸 Screenshots
+# 📄 License
 
-> *(Add screenshots of your dashboard, forms, and tables here)*
-
----
-
-## 🧑‍💻 Author
-
-**Monisha** — Developed as part of the IGT Institute ERP Project
-
----
-
-## 📄 License
-
-This project uses the **Argon Dashboard** UI kit by [Creative Tim](https://www.creative-tim.com), licensed under the [MIT License](https://www.creative-tim.com/license).
-
-Your custom code and pages are yours to use freely.
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
-## 📞 Contact
-
-For any queries related to this project, reach out via GitHub Issues.
+MIT License
