@@ -66,11 +66,11 @@ This approach makes deployment simple, cost-effective, and easy to maintain.
 
 ## 📋 Enquiry Management
 ![Enquiry Form](docs/screenshots/03-enquiry-form.png)
-![Enquiry List](docs/screenshots/04-enquiry-list.png)
+![Enquiry List](docs/screenshots/04-enquiry-view.png)
 
 ## 👨‍🎓 Student Registration
 ![Student Registration](docs/screenshots/05-student-registration.png)
-![Student List](docs/screenshots/06-student-list.png)
+
 
 ## 📚 Course Management
 ![Course Form](docs/screenshots/07-course-form.png)
@@ -85,12 +85,17 @@ This approach makes deployment simple, cost-effective, and easy to maintain.
 ![Designation List](docs/screenshots/12-designation-list.png)
 
 ## 🧑‍🏫 Staff Registration
-![Staff Registration](docs/screenshots/13-staff-registration.png)
-![Staff List](docs/screenshots/14-staff-list.png)
+![Staff Registration](docs/screenshots/13-staff-form.png)
+![Staff List](docs/screenshots/14-staff-view.png)
 
 ## 🗓️ Staff Attendance
 ![Staff Attendance Form](docs/screenshots/15-staff-attendance-form.png)
 ![Staff Attendance List](docs/screenshots/16-staff-attendance-list.png)
+
+## 🏢 Batch Management
+![Department Form](docs/screenshots/09-batch-form.png)
+![Department List](docs/screenshots/10-batch-view.png)
+
 
 ## 🎓 Student Attendance
 ![Student Attendance Form](docs/screenshots/17-student-attendance-form.png)
@@ -102,10 +107,12 @@ This approach makes deployment simple, cost-effective, and easy to maintain.
 
 ## 💳 Billing Management
 ![Billing Form](docs/screenshots/21-billing-form.png)
-![Billing List](docs/screenshots/22-billing-list.png)
+
 
 ## 📜 Student Certificate
-![Certificate](docs/screenshots/23-certificate.png)
+![Certificate Form](docs/screenshots/23-certificate-form.png)
+![Certificate List](docs/screenshots/23-certificate-view.png)
+
 
 # 🔐 Module 1 – Sign In
 
@@ -512,23 +519,23 @@ igterp/
         ├── 03-enquiry-form.png
         ├── 04-enquiry-list.png
         ├── 05-student-registration.png
-        ├── 06-student-list.png
-        ├── 07-course-form.png
-        ├── 08-course-list.png
-        ├── 09-department-form.png
-        ├── 10-department-list.png
-        ├── 11-designation-form.png
-        ├── 12-designation-list.png
-        ├── 13-staff-registration.png
-        ├── 14-staff-list.png
-        ├── 15-staff-attendance-form.png
-        ├── 16-staff-attendance-list.png
-        ├── 17-student-attendance-form.png
-        ├── 18-student-attendance-list.png
-        ├── 19-payroll-form.png
-        ├── 20-payroll-list.png
-        ├── 21-billing-form.png
-        └── 23-certificate.png
+        ├── 06-course-form.png
+        ├── 07-course-list.png
+        ├── 08-department-form.png
+        ├── 09-department-list.png
+        ├── 10-designation-form.png
+        ├── 11-designation-list.png
+        ├── 12-staff-form.png
+        ├── 13-staff-view.png
+        ├── 14-staff-attendance-form.png
+        ├── 15-staff-attendance-list.png
+        ├── 16-student-attendance-form.png
+        ├── 17-student-attendance-list.png
+        ├── 18-payroll-form.png
+        ├── 19-payroll-list.png
+        ├── 20-billing-form.png
+        └── 21-certificate-form.png
+        └── 22-certificate-view.png
 
 
 ---
