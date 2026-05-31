@@ -461,7 +461,83 @@ igterp/
 │
 └── docs/
     └── screenshots/
+        ├── 01-sign-in.png
+        ├── 02-dashboard.png
+        ├── 03-enquiry-form.png
+        ├── 04-enquiry-list.png
+        ├── 05-student-registration.png
+        ├── 06-student-list.png
+        ├── 07-course-form.png
+        ├── 08-course-list.png
+        ├── 09-department-form.png
+        ├── 10-department-list.png
+        ├── 11-designation-form.png
+        ├── 12-designation-list.png
+        ├── 13-staff-registration.png
+        ├── 14-staff-list.png
+        ├── 15-staff-attendance-form.png
+        ├── 16-staff-attendance-list.png
+        ├── 17-student-attendance-form.png
+        ├── 18-student-attendance-list.png
+        ├── 19-payroll-form.png
+        ├── 20-payroll-list.png
+        ├── 21-billing-form.png
+        ├── 22-billing-list.png
+        └── 23-certificate.png
 ```
+
+---
+
+# 📸 Screenshots
+
+## 🔐 Sign In
+![Sign In](docs/screenshots/01-sign-in.png)
+
+## 📊 Dashboard
+![Dashboard](docs/screenshots/02-dashboard.png)
+
+## 📋 Enquiry Management
+![Enquiry Form](docs/screenshots/03-enquiry-form.png)
+![Enquiry List](docs/screenshots/04-enquiry-list.png)
+
+## 👨‍🎓 Student Registration
+![Student Registration](docs/screenshots/05-student-registration.png)
+![Student List](docs/screenshots/06-student-list.png)
+
+## 📚 Course Management
+![Course Form](docs/screenshots/07-course-form.png)
+![Course List](docs/screenshots/08-course-list.png)
+
+## 🏢 Department Management
+![Department Form](docs/screenshots/09-department-form.png)
+![Department List](docs/screenshots/10-department-list.png)
+
+## 🪪 Designation Management
+![Designation Form](docs/screenshots/11-designation-form.png)
+![Designation List](docs/screenshots/12-designation-list.png)
+
+## 🧑‍🏫 Staff Registration
+![Staff Registration](docs/screenshots/13-staff-registration.png)
+![Staff List](docs/screenshots/14-staff-list.png)
+
+## 🗓️ Staff Attendance
+![Staff Attendance Form](docs/screenshots/15-staff-attendance-form.png)
+![Staff Attendance List](docs/screenshots/16-staff-attendance-list.png)
+
+## 🎓 Student Attendance
+![Student Attendance Form](docs/screenshots/17-student-attendance-form.png)
+![Student Attendance List](docs/screenshots/18-student-attendance-list.png)
+
+## 💰 Staff Payroll
+![Payroll Form](docs/screenshots/19-payroll-form.png)
+![Payroll List](docs/screenshots/20-payroll-list.png)
+
+## 💳 Billing Management
+![Billing Form](docs/screenshots/21-billing-form.png)
+![Billing List](docs/screenshots/22-billing-list.png)
+
+## 📜 Student Certificate
+![Certificate](docs/screenshots/23-certificate.png)
 
 ---
 
