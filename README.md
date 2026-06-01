@@ -59,59 +59,59 @@ This approach makes deployment simple, cost-effective, and easy to maintain.
 # 📸 Screenshots
 
 ## 🔐 Sign In
-![Sign In](docs/screenshots/01-sign-in.png)
+![Sign In](docs/screenshots/sign-in.png)
 
 ## 📊 Dashboard
-![Dashboard](docs/screenshots/02-dashboard.png)
+![Dashboard](docs/screenshots/dashboard.png)
 
 ## 📋 Enquiry Management
-![Enquiry Form](docs/screenshots/03-enquiry-form.png)
-![Enquiry List](docs/screenshots/04-enquiry-view.png)
+![Enquiry Form](docs/screenshots/enquiry-form.png)
+![Enquiry List](docs/screenshots/enquiry-view.png)
 
 ## 👨‍🎓 Student Registration
-![Student Registration](docs/screenshots/05-student-registration.png)
+![Student Registration](docs/screenshots/student-registration.png)
 
 
 ## 📚 Course Management
-![Course Form](docs/screenshots/07-course-form.png)
-![Course List](docs/screenshots/08-course-list.png)
+![Course Form](docs/screenshots/course-form.png)
+![Course List](docs/screenshots/course-list.png)
 
 ## 🏢 Department Management
-![Department Form](docs/screenshots/09-department-form.png)
-![Department List](docs/screenshots/10-department-list.png)
+![Department Form](docs/screenshots/department-form.png)
+![Department List](docs/screenshots/department-list.png)
 
 ## 🪪 Designation Management
-![Designation Form](docs/screenshots/11-designation-form.png)
-![Designation List](docs/screenshots/12-designation-list.png)
+![Designation Form](docs/screenshots/designation-form.png)
+![Designation List](docs/screenshots/designation-list.png)
 
 ## 🧑‍🏫 Staff Registration
-![Staff Registration](docs/screenshots/13-staff-form.png)
-![Staff List](docs/screenshots/14-staff-view.png)
+![Staff Registration](docs/screenshots/staff-form.png)
+![Staff List](docs/screenshots/staff-view.png)
 
 ## 🗓️ Staff Attendance
-![Staff Attendance Form](docs/screenshots/15-staff-attendance-form.png)
-![Staff Attendance List](docs/screenshots/16-staff-attendance-list.png)
+![Staff Attendance Form](docs/screenshots/staff-attendance-form.png)
+![Staff Attendance List](docs/screenshots/staff-attendance-list.png)
 
 ## 🏢 Batch Management
-![Department Form](docs/screenshots/09-batch-form.png)
-![Department List](docs/screenshots/10-batch-view.png)
+![Department Form](docs/screenshots/batch-form.png)
+![Department List](docs/screenshots/batch-view.png)
 
 
 ## 🎓 Student Attendance
-![Student Attendance Form](docs/screenshots/17-student-attendance-form.png)
-![Student Attendance List](docs/screenshots/18-student-attendance-list.png)
+![Student Attendance Form](docs/screenshots/student-attendance-form.png)
+![Student Attendance List](docs/screenshots/student-attendance-list.png)
 
 ## 💰 Staff Payroll
-![Payroll Form](docs/screenshots/19-payroll-form.png)
-![Payroll List](docs/screenshots/20-payroll-list.png)
+![Payroll Form](docs/screenshots/payroll-form.png)
+![Payroll List](docs/screenshots/payroll-list.png)
 
 ## 💳 Billing Management
-![Billing Form](docs/screenshots/21-billing-form.png)
+![Billing Form](docs/screenshots/billing-form.png)
 
 
 ## 📜 Student Certificate
-![Certificate Form](docs/screenshots/23-certificate-form.png)
-![Certificate List](docs/screenshots/23-certificate-view.png)
+![Certificate Form](docs/screenshots/certificate-form.png)
+![Certificate List](docs/screenshots/certificate-view.png)
 
 
 # 🔐 Module 1 – Sign In
