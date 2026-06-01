@@ -514,28 +514,28 @@ igterp/
 │
 └── docs/
     └── screenshots/
-        ├── 01-sign-in.png
-        ├── 02-dashboard.png
-        ├── 03-enquiry-form.png
-        ├── 04-enquiry-list.png
-        ├── 05-student-registration.png
-        ├── 06-course-form.png
-        ├── 07-course-list.png
-        ├── 08-department-form.png
-        ├── 09-department-list.png
-        ├── 10-designation-form.png
-        ├── 11-designation-list.png
-        ├── 12-staff-form.png
-        ├── 13-staff-view.png
-        ├── 14-staff-attendance-form.png
-        ├── 15-staff-attendance-list.png
-        ├── 16-student-attendance-form.png
-        ├── 17-student-attendance-list.png
-        ├── 18-payroll-form.png
-        ├── 19-payroll-list.png
-        ├── 20-billing-form.png
-        └── 21-certificate-form.png
-        └── 22-certificate-view.png
+        ├── sign-in.png
+        ├── dashboard.png
+        ├── enquiry-form.png
+        ├── enquiry-list.png
+        ├── student-registration.png
+        ├── course-form.png
+        ├── course-list.png
+        ├── department-form.png
+        ├── department-list.png
+        ├── designation-form.png
+        ├── designation-list.png
+        ├── staff-form.png
+        ├── staff-view.png
+        ├── staff-attendance-form.png
+        ├── staff-attendance-list.png
+        ├── student-attendance-form.png
+        ├── student-attendance-list.png
+        ├── payroll-form.png
+        ├── payroll-list.png
+        ├── billing-form.png
+        └── certificate-form.png
+        └── certificate-view.png
 
 
 ---
